@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json",
+  "version": "4.0",
+  "datasetReference": {
+    "byConnection": {
+      "connectionString": "Data Source=powerbi://api.powerbi.com/v1.0/myorg/ws-bee-genka-00001;initial catalog=sm_genka_bee_001;access mode=readonly;integrated security=ClaimsToken;semanticmodelid=baa93a5b-0216-4630-a9c9-c626db5e82d4"
+    }
+  }
+}

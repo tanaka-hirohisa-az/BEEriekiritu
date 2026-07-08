@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "fef0afaee0ccbe3b440b",
+  "position": {
+    "x": 344.44444444444446,
+    "y": 360,
+    "z": 1000,
+    "height": 292.22222222222223,
+    "width": 450,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "pieChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "F_得意先略称"
+                }
+              },
+              "queryRef": "tbl_sales.F_得意先略称",
+              "nativeQueryRef": "F_得意先略称",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "利益"
+                }
+              },
+              "queryRef": "tbl_sales.利益",
+              "nativeQueryRef": "利益"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Schema": "extension",
+                    "Entity": "tbl_sales"
+                  }
+                },
+                "Property": "利益"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

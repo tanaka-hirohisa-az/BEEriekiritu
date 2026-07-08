@@ -1,0 +1,165 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "78d130a1bc8436d91c1d",
+  "position": {
+    "x": 884.6265411478895,
+    "y": 452.7616155481324,
+    "z": 9000,
+    "height": 267.67664743395079,
+    "width": 395.04694807166715,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_calendar"
+                    }
+                  },
+                  "Property": "年月_yy年MM月"
+                }
+              },
+              "queryRef": "tbl_calendar.年月_yy年MM月",
+              "nativeQueryRef": "年月_yy年MM月",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_材料費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_材料費",
+              "nativeQueryRef": "差額_材料費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_製造経費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_製造経費",
+              "nativeQueryRef": "差額_製造経費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_直接労務費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_直接労務費",
+              "nativeQueryRef": "差額_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_直接労務費(円貨)"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近_直接労務費1",
+              "nativeQueryRef": "直近_直接労務費1"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_間接材料費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近間接材料費",
+              "nativeQueryRef": "直近間接材料費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_間接労務費(円貨)"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近間接労務費1",
+              "nativeQueryRef": "直近間接労務費1"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_calendar"
+                  }
+                },
+                "Property": "年月_yy年MM月"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

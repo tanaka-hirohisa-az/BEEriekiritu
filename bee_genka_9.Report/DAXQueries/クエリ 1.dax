@@ -1,0 +1,5 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    "メジャー名", NAMEOF([去年原価]),
+    "テーブル名", NAMEOFPARENT([去年原価])
+)

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "49a8a15218aa4e7d3d0c",
+  "position": {
+    "x": 9.64824120603015,
+    "y": 0,
+    "z": 0,
+    "height": 545.1256281407035,
+    "width": 1110.753768844221,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_material_cost_snapshot_standard"
+                    }
+                  },
+                  "Property": "F_Sales_ID"
+                }
+              },
+              "queryRef": "tbl_material_cost_snapshot_standard.F_Sales_ID",
+              "nativeQueryRef": "F_Sales_ID"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_material_cost_snapshot_standard"
+                  }
+                },
+                "Property": "F_Sales_ID"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d92b984b9dbba77783dc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_material_cost_snapshot_standard"
+              }
+            },
+            "Property": "F_Sales_ID"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "tbl_material_cost_snapshot_standard",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Contains": {
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "t"
+                        }
+                      },
+                      "Property": "F_Sales_ID"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "'2026/'"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "791c26fb3749b7b10bf4",
+  "position": {
+    "x": 976.706827309237,
+    "y": 0,
+    "z": 4000,
+    "height": 363.6947791164659,
+    "width": 303.29317269076307,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "区分"
+                }
+              },
+              "queryRef": "tbl_sales.区分",
+              "nativeQueryRef": "区分"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "売上"
+                }
+              },
+              "queryRef": "tbl_sales.売上",
+              "nativeQueryRef": "売上"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_customer_Segmen"
+                    }
+                  },
+                  "Property": "区分(6社)"
+                }
+              },
+              "queryRef": "tbl_customer_Segmen.区分(6社)",
+              "nativeQueryRef": "区分(6社)",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "利益率"
+                }
+              },
+              "queryRef": "tbl_sales.利益率",
+              "nativeQueryRef": "利益率"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_customer_Segmen"
+                  }
+                },
+                "Property": "区分(6社)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "heading": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Normal'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

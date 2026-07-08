@@ -1,0 +1,72 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "62b55dafaa996678908b",
+  "displayName": "見積比較",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "f2a7ed53ac0ea3008c90",
+    "type": "Default",
+    "parameters": [],
+    "referenceScope": "CrossReport",
+    "acceptsFilterContext": "None"
+  },
+  "visualInteractions": [
+    {
+      "source": "6eda2720580c914c9124",
+      "target": "1c523c407eba5b0aa3ab",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6eda2720580c914c9124",
+      "target": "b5e1d5b9b5de1a50737d",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6eda2720580c914c9124",
+      "target": "d18304a6d254e4b4966e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b5e1d5b9b5de1a50737d",
+      "target": "d18304a6d254e4b4966e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b5e1d5b9b5de1a50737d",
+      "target": "1c523c407eba5b0aa3ab",
+      "type": "DataFilter"
+    },
+    {
+      "source": "5f5d6fe4da5445c3a234",
+      "target": "d18304a6d254e4b4966e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "5f5d6fe4da5445c3a234",
+      "target": "1c523c407eba5b0aa3ab",
+      "type": "DataFilter"
+    },
+    {
+      "source": "5993bd685808ab3dd5b1",
+      "target": "1c523c407eba5b0aa3ab",
+      "type": "DataFilter"
+    },
+    {
+      "source": "5993bd685808ab3dd5b1",
+      "target": "d18304a6d254e4b4966e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "1c523c407eba5b0aa3ab",
+      "target": "d18304a6d254e4b4966e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "d18304a6d254e4b4966e",
+      "target": "1c523c407eba5b0aa3ab",
+      "type": "DataFilter"
+    }
+  ]
+}

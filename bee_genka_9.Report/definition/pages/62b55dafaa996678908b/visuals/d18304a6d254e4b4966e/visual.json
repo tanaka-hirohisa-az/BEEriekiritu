@@ -1,0 +1,218 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d18304a6d254e4b4966e",
+  "position": {
+    "x": 615.0753768844221,
+    "y": 0,
+    "z": 6000,
+    "height": 418.49246231155774,
+    "width": 364.22110552763814,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_cost_categories"
+                    }
+                  },
+                  "Property": "費目"
+                }
+              },
+              "queryRef": "tbl_cost_categories.費目",
+              "nativeQueryRef": "費目",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_cost_categories"
+                    }
+                  },
+                  "Property": "費目(3)_見積"
+                }
+              },
+              "queryRef": "tbl_cost_categories.費目(3)_見積",
+              "nativeQueryRef": "費目(3)_見積"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_cost_categories"
+                    }
+                  },
+                  "Property": "費目(3)_直近"
+                }
+              },
+              "queryRef": "tbl_cost_categories.費目(3)_直近",
+              "nativeQueryRef": "費目(3)_直近"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_cost_categories"
+                  }
+                },
+                "Property": "費目"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "logAxisScale": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'費目別差額'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "5bd33cc874479cab4aa0",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_cost_categories"
+              }
+            },
+            "Property": "費目"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "dec3cf4621418d657654",
+        "ordinal": 1,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Schema": "extension",
+                "Entity": "tbl_cost_categories"
+              }
+            },
+            "Property": "費目(3)_見積"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t1",
+              "Entity": "tbl_cost_categories",
+              "Schema": "extension",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t1"
+                            }
+                          },
+                          "Property": "費目(3)_見積"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "f7f1eed414c19cca6aba",
+        "ordinal": 2,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Schema": "extension",
+                "Entity": "tbl_cost_categories"
+              }
+            },
+            "Property": "費目(3)_直近"
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

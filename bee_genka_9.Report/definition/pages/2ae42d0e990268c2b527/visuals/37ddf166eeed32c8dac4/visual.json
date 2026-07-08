@@ -1,0 +1,310 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "37ddf166eeed32c8dac4",
+  "position": {
+    "x": 378,
+    "y": 0,
+    "z": 5000,
+    "height": 174.375,
+    "width": 300.375,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "F_在庫品目番号"
+                }
+              },
+              "queryRef": "tbl_item_bridge.F_在庫品目番号",
+              "nativeQueryRef": "F_在庫品目番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "工程"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.工程",
+              "nativeQueryRef": "工程"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "直近_修正回路数_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.修正回路数_直接労務費",
+              "nativeQueryRef": "直近_修正回路数_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "直近_1回路あたりの時間_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.1回路当たりの時間_直接労務費",
+              "nativeQueryRef": "直近_1回路当たりの時間_直接労務費"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "tbl_labor_costs_direct"
+                        }
+                      },
+                      "Property": "賃率/秒"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(tbl_labor_costs_direct.賃率/秒)",
+              "nativeQueryRef": "賃率/秒 の合計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "直近_作業時間_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.直近_作業時間_直接労務費",
+              "nativeQueryRef": "直近_作業時間_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "直近_賃率_秒_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.直近_賃率_秒_直接労務費",
+              "nativeQueryRef": "直近_賃率_秒_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "標準_賃率_秒_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.標準_賃率_秒_直接労務費",
+              "nativeQueryRef": "標準_賃率_秒_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "標準_1回路あたりの時間_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.標準_1回路あたりの時間_直接労務費",
+              "nativeQueryRef": "標準_1回路あたりの時間_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "標準_作業時間_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.標準_作業時間_直接労務費",
+              "nativeQueryRef": "標準_作業時間_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_direct"
+                    }
+                  },
+                  "Property": "標準_修正回路数_直接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_direct.標準_修正回路数_直接労務費",
+              "nativeQueryRef": "標準_修正回路数_直接労務費"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Schema": "extension",
+                    "Entity": "tbl_labor_costs_direct"
+                  }
+                },
+                "Property": "直近_賃率_秒_直接労務費"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "102.60913743868225D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "tbl_labor_costs_direct.1回路当たりの時間_直接労務費"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.08428234768888D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "tbl_labor_costs_direct.修正回路数_直接労務費"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'直接労務費内訳'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d625200c001cd7767488",
+  "position": {
+    "x": 677.7889447236181,
+    "y": 0,
+    "z": 6000,
+    "height": 178.49246231155777,
+    "width": 299.09547738693465,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "F_在庫品目番号"
+                }
+              },
+              "queryRef": "tbl_item_bridge.F_在庫品目番号",
+              "nativeQueryRef": "F_在庫品目番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_labor_costs_indirect"
+                    }
+                  },
+                  "Property": "工程"
+                }
+              },
+              "queryRef": "tbl_labor_costs_indirect.工程",
+              "nativeQueryRef": "工程"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_indirect"
+                    }
+                  },
+                  "Property": "修正回路数_労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_indirect.修正回路数_労務費",
+              "nativeQueryRef": "修正回路数_労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_indirect"
+                    }
+                  },
+                  "Property": "1回路当たりの賃率_間接労務費"
+                }
+              },
+              "queryRef": "tbl_labor_costs_indirect.1回路当たりの賃率_間接労務費",
+              "nativeQueryRef": "1回路当たりの賃率_間接労務費"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_labor_costs_indirect"
+                    }
+                  },
+                  "Property": "日付"
+                }
+              },
+              "queryRef": "tbl_labor_costs_indirect.日付",
+              "nativeQueryRef": "日付"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_labor_costs_indirect"
+                    }
+                  },
+                  "Property": "間接労務費_明細"
+                }
+              },
+              "queryRef": "tbl_labor_costs_indirect.間接労務費_明細",
+              "nativeQueryRef": "間接労務費_明細"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_labor_costs_indirect"
+                    }
+                  },
+                  "Property": "通貨"
+                }
+              },
+              "queryRef": "tbl_labor_costs_indirect.通貨",
+              "nativeQueryRef": "通貨"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_item_bridge"
+                  }
+                },
+                "Property": "F_在庫品目番号"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "60.86464271266965D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "tbl_labor_costs_indirect.1回路当たりの賃率_間接労務費"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "31.241997781663414D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "tbl_labor_costs_indirect.修正回路数_労務費"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "66.2596599690881D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "tbl_labor_costs_indirect.間接労務費_明細"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'間接労務費内訳'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

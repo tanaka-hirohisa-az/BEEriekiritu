@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "bee_genka_9"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "17f9f28d-5b73-43bd-9cf7-c1c0e3cfb518"
+  }
+}

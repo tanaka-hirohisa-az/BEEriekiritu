@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "55b2125e0a17fb9b997f",
+  "position": {
+    "x": 0,
+    "y": 452.25,
+    "z": 2000,
+    "height": 267.75,
+    "width": 938.25,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "F_得意先略称"
+                }
+              },
+              "queryRef": "tbl_sales.F_得意先略称",
+              "nativeQueryRef": "F_得意先略称",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_材料費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_材料費",
+              "nativeQueryRef": "差額_材料費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_間接材料費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_間接材料費",
+              "nativeQueryRef": "差額_間接材料費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_製造経費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_製造経費",
+              "nativeQueryRef": "差額_製造経費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_直接労務費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_直接労務費",
+              "nativeQueryRef": "差額_直接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "差額_間接労務費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.差額_間接労務費",
+              "nativeQueryRef": "差額_間接労務費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "差額_原価合計"
+                }
+              },
+              "queryRef": "tbl_sales.差額_原価合計",
+              "nativeQueryRef": "差額_原価合計"
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "tbl_sales.F_得意先略称"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "F_得意先略称"
+                }
+              }
+            ],
+            "isPinned": true
+          }
+        ],
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'コベルコ建機㈱　クレーン汎用部'"
+                  }
+                }
+              ],
+              "isToggled": true
+            }
+          ]
+        }
+      }
+    ],
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bc7081613a6e1998a014",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_sales"
+              }
+            },
+            "Property": "F_仕入先"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "3b071f205c5e00d4038b",
+  "position": {
+    "x": 518.5929648241206,
+    "y": 0,
+    "z": 7000,
+    "height": 479.99999999999994,
+    "width": 359.3969849246231,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "F_在庫品目番号"
+                }
+              },
+              "queryRef": "tbl_sales.F_在庫品目番号",
+              "nativeQueryRef": "F_在庫品目番号",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_customer_Segmen"
+                    }
+                  },
+                  "Property": "区分(6社)"
+                }
+              },
+              "queryRef": "tbl_customer_Segmen.区分(6社)",
+              "nativeQueryRef": "区分(6社)"
+            }
+          ],
+          "showAll": true
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "直近原価合計"
+                }
+              },
+              "queryRef": "tbl_sales.直近原価合計",
+              "nativeQueryRef": "直近原価合計"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "利益"
+                }
+              },
+              "queryRef": "tbl_sales.利益",
+              "nativeQueryRef": "利益"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "tbl_sales"
+                        }
+                      },
+                      "Property": "F_数量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(tbl_sales.F_数量)",
+              "nativeQueryRef": "F_数量 の合計",
+              "active": true
+            }
+          ],
+          "showAll": true
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "利益率"
+                }
+              },
+              "queryRef": "tbl_sales.利益率",
+              "nativeQueryRef": "利益率"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Schema": "extension",
+                    "Entity": "tbl_sales"
+                  }
+                },
+                "Property": "利益率"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "dataVolume": {
+              "expr": {
+                "Literal": {
+                  "Value": "10000L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "bubbles": [
+        {
+          "properties": {
+            "bubbleSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "-10L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'品目ごとの売上個数と利益率分布 (サイズ:原単価)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

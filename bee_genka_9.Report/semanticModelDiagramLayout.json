@@ -1,0 +1,321 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 265.23137679145037,
+        "y": 462.58363345617886
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 477.52891108109162,
+            "y": 109.40197856395002
+          },
+          "nodeIndex": "tbl_BOM",
+          "nodeLineageTag": "846c9e8d-a78a-4a2b-b5c4-dae5266fb8dc",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1866.200073012506,
+            "y": 463.25130242454566
+          },
+          "nodeIndex": "tbl_calendar",
+          "nodeLineageTag": "eb1cc10e-b358-48a1-bc05-36ff55bd0fb3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2699.0218904284116,
+            "y": 730.17510061890141
+          },
+          "nodeIndex": "tbl_cost_categories",
+          "nodeLineageTag": "971a614c-639f-490e-b425-4dc8999ab4eb",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 972.04833857285178,
+            "y": 1524.8920385235044
+          },
+          "nodeIndex": "tbl_customer_Segmen",
+          "nodeLineageTag": "b588524d-e342-489a-9479-97f361c1cd52",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1534.6960072417608,
+            "y": 693.18996010017941
+          },
+          "nodeIndex": "tbl_date_bridge",
+          "nodeLineageTag": "532b13f5-fc66-44b7-833e-e66751712b65",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1027.8142433023656,
+            "y": 486.3249137785001
+          },
+          "nodeIndex": "tbl_indirect_material_costs",
+          "nodeLineageTag": "821ad617-5026-476f-8b6a-c2c694617ca9",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 854.69803393482437,
+            "y": 791.06934064966242
+          },
+          "nodeIndex": "tbl_item_bridge",
+          "nodeLineageTag": "0d407286-ba32-4ee4-93c2-056601e822bf",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 553.23581748771414,
+            "y": 701.13578035934222
+          },
+          "nodeIndex": "tbl_labor_costs_direct",
+          "nodeLineageTag": "c6b12dd6-086a-4ffa-870d-0b60351e7cf6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 227.52626084128454,
+            "y": 1049.453935800967
+          },
+          "nodeIndex": "tbl_labor_costs_indirect",
+          "nodeLineageTag": "ccc0f2a7-3142-412d-9e11-22193fbb10e0",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 744.19136545121592,
+            "y": 1144.1410295821349
+          },
+          "nodeIndex": "tbl_manufacturing_costs",
+          "nodeLineageTag": "b3ba6395-7c54-47cd-9f91-281c2f7f3e95",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 402.50988685377297,
+            "y": -50
+          },
+          "nodeIndex": "tbl_material_bridge",
+          "nodeLineageTag": "ce4add47-92ce-4c12-91b8-9ba02af3674b",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1217.2524924152267,
+            "y": 1172.3240218020653
+          },
+          "nodeIndex": "tbl_material_cost_snapshot",
+          "nodeLineageTag": "9b49bbcb-0b5d-4da4-9602-d3b49100af3e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1579.5798150914861,
+            "y": 466.11290507833542
+          },
+          "nodeIndex": "tbl_material_cost_snapshot_standard",
+          "nodeLineageTag": "d3213fea-00ba-43bc-ac21-4120a1eee436",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1294.5604470892731,
+            "y": 161.81736454831093
+          },
+          "nodeIndex": "tbl_material_price",
+          "nodeLineageTag": "08043740-4caa-4274-ac50-e1582842a9a6",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 817.46916297145151
+          },
+          "nodeIndex": "tbl_NoCircuit",
+          "nodeLineageTag": "af8b1fc6-50a0-489c-84ab-e21fc21ed327",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1248.3587454664148,
+            "y": 819.85810750653468
+          },
+          "nodeIndex": "tbl_sales",
+          "nodeLineageTag": "c0f3e3c7-4726-4923-ad6e-224f0897d42d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2465.0218904284116,
+            "y": 397.99044842900616
+          },
+          "nodeIndex": "tbl_account_class",
+          "nodeLineageTag": "3ec3572c-d4ca-4d49-9ad2-2ef54441b213",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2155.7193016302767,
+            "y": 373.79385553375073
+          },
+          "nodeIndex": "tbl_bs",
+          "nodeLineageTag": "49e424e7-3a87-4b54-9840-6003b94eaeb3",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2255.8657942455206,
+            "y": 654.26037639283686
+          },
+          "nodeIndex": "tbl_gl",
+          "nodeLineageTag": "ece8dcab-e67e-403a-a181-59bef6f09861",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2190.6618099656066,
+            "y": 95.527711030420051
+          },
+          "nodeIndex": "tbl_pl",
+          "nodeLineageTag": "1cfec6e4-7ac9-4d56-960b-dfd427954309",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2983.0218904284116,
+            "y": 802.17510061890141
+          },
+          "nodeIndex": "tbl_rate",
+          "nodeLineageTag": "69682e85-7216-4441-9b8d-5e880823b296",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 454.3322754566542,
+            "y": 1406.350201237803
+          },
+          "nodeIndex": "tbl_sales_estimate",
+          "nodeLineageTag": "f0f0b9ca-ae39-418e-80a6-2db84f81af64",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 264.90356781229707,
+            "y": 462.72769377370787
+          },
+          "nodeIndex": "tbl_sales_HE_Eksport",
+          "nodeLineageTag": "b46260a7-4714-4e66-bf84-4f5a0aea3113",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "すべてのテーブル",
+      "zoomValue": 79.553182037699813,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "すべてのテーブル",
+  "defaultDiagram": "すべてのテーブル"
+}

@@ -1,0 +1,317 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e7cbb094b42206591e9c",
+  "position": {
+    "x": 377.48743718592965,
+    "y": 189.3467336683417,
+    "z": 2000,
+    "height": 176.08040201005025,
+    "width": 613.86934673366829,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "F_在庫品目番号"
+                }
+              },
+              "queryRef": "tbl_item_bridge.F_在庫品目番号",
+              "nativeQueryRef": "F_在庫品目番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_BOM"
+                    }
+                  },
+                  "Property": "F_材料番号"
+                }
+              },
+              "queryRef": "tbl_BOM.F_材料番号",
+              "nativeQueryRef": "F_材料番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_BOM"
+                    }
+                  },
+                  "Property": "F_分類名"
+                }
+              },
+              "queryRef": "tbl_BOM.F_分類名",
+              "nativeQueryRef": "F_分類名"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_BOM"
+                    }
+                  },
+                  "Property": "製造元"
+                }
+              },
+              "queryRef": "tbl_BOM.製造元",
+              "nativeQueryRef": "製造元"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "tbl_BOM"
+                        }
+                      },
+                      "Property": "数量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(tbl_BOM.数量)",
+              "nativeQueryRef": "数量 の合計"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_material_price"
+                    }
+                  },
+                  "Property": "仕入単価"
+                }
+              },
+              "queryRef": "Sum(tbl_material_price.仕入単価)",
+              "nativeQueryRef": "仕入単価"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_material_price"
+                    }
+                  },
+                  "Property": "F_開始日"
+                }
+              },
+              "queryRef": "tbl_material_price.F_開始日",
+              "nativeQueryRef": "F_開始日"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_material_price"
+                    }
+                  },
+                  "Property": "通貨"
+                }
+              },
+              "queryRef": "tbl_material_price.通貨",
+              "nativeQueryRef": "通貨"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_BOM"
+                  }
+                },
+                "Property": "F_材料番号"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_material_price"
+                  }
+                },
+                "Property": "F_開始日"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "83.72504199037719D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "tbl_BOM.F_材料番号"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'材料内訳'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "453904b64ea8d0d11bbb",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_BOM"
+              }
+            },
+            "Property": "F_材料番号"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d789aa564020ad2ab669",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_BOM"
+              }
+            },
+            "Property": "F_納入品目番号"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "350071176963d388314c",
+        "ordinal": 2,
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_BOM"
+                  }
+                },
+                "Property": "数量"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "92e88002a291c401b57e",
+        "ordinal": 3,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Schema": "extension",
+                "Entity": "tbl_BOM"
+              }
+            },
+            "Property": "売上数x材料数×仕入単価"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

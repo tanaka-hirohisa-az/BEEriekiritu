@@ -1,0 +1,86 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "2ae42d0e990268c2b527",
+  "displayName": "ページ 1",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "45af89cd809bbdff971b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_item_bridge"
+              }
+            },
+            "Property": "F_在庫品目番号"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "50fc8abcd6c8079632d2",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "6e03291fd9d07c34a37a",
+        "boundFilter": "45af89cd809bbdff971b",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_item_bridge"
+              }
+            },
+            "Property": "F_在庫品目番号"
+          }
+        }
+      }
+    ],
+    "referenceScope": "CrossReport",
+    "acceptsFilterContext": "None"
+  },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "204L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "0e1a7f83534d04b0e18b",
+      "target": "e7cbb094b42206591e9c",
+      "type": "DataFilter"
+    },
+    {
+      "source": "71603d539b2bc447b475",
+      "target": "e7cbb094b42206591e9c",
+      "type": "DataFilter"
+    },
+    {
+      "source": "71603d539b2bc447b475",
+      "target": "791c26fb3749b7b10bf4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "71603d539b2bc447b475",
+      "target": "37ddf166eeed32c8dac4",
+      "type": "DataFilter"
+    }
+  ]
+}

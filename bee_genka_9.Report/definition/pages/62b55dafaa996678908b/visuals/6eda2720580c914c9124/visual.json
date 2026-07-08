@@ -1,0 +1,368 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "6eda2720580c914c9124",
+  "position": {
+    "x": 0,
+    "y": 452.02247191011236,
+    "z": 2000,
+    "height": 267.97752808988764,
+    "width": 1153.8202247191011,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales_estimate"
+                    }
+                  },
+                  "Property": "F_得意先略称"
+                }
+              },
+              "queryRef": "tbl_sales_estimate.F_得意先略称",
+              "nativeQueryRef": "F_得意先略称"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "F_在庫品目番号"
+                }
+              },
+              "queryRef": "tbl_item_bridge.F_在庫品目番号",
+              "nativeQueryRef": "F_在庫品目番号"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "F_作業日"
+                }
+              },
+              "queryRef": "tbl_sales.F_作業日",
+              "nativeQueryRef": "F_作業日"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "tbl_sales"
+                        }
+                      },
+                      "Property": "F_数量"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(tbl_sales.F_数量)",
+              "nativeQueryRef": "F_数量 の合計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "売上"
+                }
+              },
+              "queryRef": "tbl_sales.売上",
+              "nativeQueryRef": "売上"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "見積_加工費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近_見積_加工費",
+              "nativeQueryRef": "見積_加工費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "見積_材料費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.見積_材料費",
+              "nativeQueryRef": "見積_材料費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "見積_管理費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.見積_管理費",
+              "nativeQueryRef": "見積_管理費"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales_estimate"
+                    }
+                  },
+                  "Property": "提出日付"
+                }
+              },
+              "queryRef": "tbl_sales_estimate.提出日付",
+              "nativeQueryRef": "提出日付"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales_estimate"
+                    }
+                  },
+                  "Property": "加工有無"
+                }
+              },
+              "queryRef": "tbl_sales_estimate.加工有無",
+              "nativeQueryRef": "加工有無"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_material_cost_snapshot"
+                    }
+                  },
+                  "Property": "直近材料費(円貨)"
+                }
+              },
+              "queryRef": "tbl_material_cost_snapshot.直近材料費(円貨)",
+              "nativeQueryRef": "直近材料費(円貨)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_直接労務費(円貨)"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近_直接労務費(円貨)",
+              "nativeQueryRef": "直近_直接労務費(円貨)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_間接労務費(円貨)"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近_間接労務費(円貨)",
+              "nativeQueryRef": "直近_間接労務費(円貨)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_間接材料費"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近_間接材料費",
+              "nativeQueryRef": "直近_間接材料費"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_item_bridge"
+                    }
+                  },
+                  "Property": "直近_製造経費(円貨)"
+                }
+              },
+              "queryRef": "tbl_item_bridge.直近_製造経費(円貨)",
+              "nativeQueryRef": "直近_製造経費(円貨)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_sales"
+                    }
+                  },
+                  "Property": "利益"
+                }
+              },
+              "queryRef": "tbl_sales.利益",
+              "nativeQueryRef": "利益"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_sales_estimate"
+                  }
+                },
+                "Property": "F_得意先略称"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bc7081613a6e1998a014",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_sales"
+              }
+            },
+            "Property": "F_仕入先"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "0fea64228d05297db80d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Schema": "extension",
+                "Entity": "tbl_item_bridge"
+              }
+            },
+            "Property": "見積_加工費"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t4",
+              "Entity": "tbl_item_bridge",
+              "Schema": "extension",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t4"
+                            }
+                          },
+                          "Property": "見積_加工費"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "1c523c407eba5b0aa3ab",
+  "position": {
+    "x": 276.18090452261305,
+    "y": 0,
+    "z": 3000,
+    "height": 418.49246231155774,
+    "width": 338.89447236180905,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_cost_categories"
+                    }
+                  },
+                  "Property": "費目"
+                }
+              },
+              "queryRef": "tbl_cost_categories.費目",
+              "nativeQueryRef": "費目",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_cost_categories"
+                    }
+                  },
+                  "Property": "費目(3)_見積"
+                }
+              },
+              "queryRef": "tbl_cost_categories.費目(3)_見積",
+              "nativeQueryRef": "費目(3)_見積"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Schema": "extension",
+                      "Entity": "tbl_cost_categories"
+                    }
+                  },
+                  "Property": "費目_見積比較用_直近"
+                }
+              },
+              "queryRef": "tbl_cost_categories.費目_直近",
+              "nativeQueryRef": "費目_直近"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "tbl_cost_categories"
+                  }
+                },
+                "Property": "費目"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'費目別差額'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

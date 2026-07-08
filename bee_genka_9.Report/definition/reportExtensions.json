@@ -1,0 +1,950 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/reportExtension/1.0.0/schema.json",
+  "name": "extension",
+  "entities": [
+    {
+      "name": "tbl_sales",
+      "measures": [
+        {
+          "name": "BOM情報",
+          "dataType": "Double",
+          "expression": "\r\nCALCULATE(\r\n    MAX(tbl_BOM[F_納入品目番号]),\r\n    FILTER(tbl_BOM, tbl_BOM[F_納入品目番号] = SELECTEDVALUE(tbl_sales[F_在庫品目番号]))\r\n)\r\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "直近原価合計",
+          "dataType": "Double",
+          "expression": "\nVAR SelectedDate = SELECTEDVALUE(tbl_date_bridge[F_作業日])\nRETURN\n    ROUND(\n        SUMX(tbl_item_bridge, ROUND(tbl_material_cost_snapshot[直近材料費(円貨)], 2)) +\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[直近_間接材料費], 2)) +\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[直近_直接労務費(円貨)], 2)) +\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[直近_間接労務費(円貨)], 2)) +\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[直近_製造経費(円貨)], 2)),\n        2\n    )\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "年間平均原価",
+          "dataType": "Double",
+          "expression": "\nVAR SelectedDate = SELECTEDVALUE(tbl_date_bridge[F_作業日])\nVAR OneYearAgo = EDATE(SelectedDate, -12)\nRETURN\nAVERAGEX(\n    FILTER(\n        tbl_sales,\n        tbl_sales[F_作業日] >= OneYearAgo &&\n        tbl_sales[F_作業日] <= SelectedDate\n    ),\n    [直近原価合計]\n)",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "直近原価合計"
+              }
+            ]
+          }
+        },
+        {
+          "name": "売上",
+          "dataType": "Double",
+          "expression": "SUMX(tbl_sales, tbl_sales[F_数量] * tbl_sales[F_契約単価])\r\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "品目別データ",
+          "dataType": "Double",
+          "expression": "\nSUMMARIZE(\n    tbl_sales,\n    tbl_sales[F_在庫品目番号],\n    \"売上金額\", SUMX(tbl_sales, tbl_sales[F_契約単価] * tbl_sales[F_数量]),\n    \"原価合計\", \n        SUMX(tbl_material_price, tbl_material_price[仕入単価]) +\n        SUMX(tbl_labor_costs_direct, tbl_labor_costs_direct[直接労務費]) +\n        SUMX(tbl_labor_costs_indirect, tbl_labor_costs_indirect[間接労務費]) +\n        SUMX(tbl_indirect_material_costs, tbl_indirect_material_costs[間接材料費]) +\n        SUMX(tbl_manufacturing_costs, tbl_manufacturing_costs[製造経費]),\n    \"利益\", \n        SUMX(tbl_sales, tbl_sales[F_契約単価] * tbl_sales[F_数量]) - \n        (\n            SUMX(tbl_material_price, tbl_material_price[仕入単価]) +\n            SUMX(tbl_labor_costs_direct, tbl_labor_costs_direct[直接労務費]) +\n            SUMX(tbl_labor_costs_indirect, tbl_labor_costs_indirect[間接労務費]) +\n            SUMX(tbl_indirect_material_costs, tbl_indirect_material_costs[間接材料費]) +\n            SUMX(tbl_manufacturing_costs, tbl_manufacturing_costs[製造経費])\n        )\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "利益",
+          "dataType": "Double",
+          "expression": "[売上] - [直近原価合計]",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "売上"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "直近原価合計"
+              }
+            ]
+          }
+        },
+        {
+          "name": "利益率",
+          "dataType": "Double",
+          "expression": "\r\nDIVIDE([利益], [売上], BLANK())",
+          "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "利益"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "売上"
+              }
+            ]
+          }
+        },
+        {
+          "name": "BOM_Filter_Test",
+          "dataType": "Double",
+          "expression": "\nVAR Itemno = SELECTEDVALUE(tbl_sales[F_在庫品目番号])\nRETURN\nCALCULATE(\n    COUNTROWS(tbl_BOM),\n    tbl_BOM[F_納入品目番号] IN VALUES('tbl_item_bridge'[F_在庫品目番号]\n))",
+          "formatString": "General Number"
+        },
+        {
+          "name": "Bridge_Filter_Test",
+          "dataType": "Double",
+          "expression": "\r\nVAR Itemno = SELECTEDVALUE(tbl_sales[F_在庫品目番号])\r\nRETURN\r\nCALCULATE(\r\n    COUNTROWS(tbl_material_bridge),\r\n    FILTER(tbl_material_bridge, tbl_material_bridge[F_材料番号] IN VALUES(tbl_BOM[F_材料番号]))\r\n)",
+          "formatString": "General Number"
+        },
+        {
+          "name": "MaterialPrice_Filter_Test",
+          "dataType": "Double",
+          "expression": "\r\nVAR Itemno = SELECTEDVALUE(tbl_sales[F_在庫品目番号])\r\nVAR Material = CALCULATE(\r\n    MAX(tbl_BOM[F_材料番号]),\r\n    FILTER(tbl_BOM, tbl_BOM[F_納入品目番号] = Itemno)\r\n)\r\nRETURN\r\nCALCULATE(\r\n    MAX(tbl_material_price[仕入単価]),\r\n    FILTER(\r\n        tbl_material_price,\r\n        tbl_material_price[F_材料番号] = Material\r\n    )\r\n)\r\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "EXCEPT_NOFILTERS",
+          "dataType": "Double",
+          "expression": "\r\n    EXCEPT(\r\n        CALCULATETABLE(\r\n            SUMMARIZE('tbl_sales', 'tbl_sales'[F_在庫品目番号]),\r\n            REMOVEFILTERS('tbl_sales')\r\n        ),\r\n        CALCULATETABLE(\r\n            SUMMARIZE('tbl_item_bridge', 'tbl_item_bridge'[F_在庫品目番号]),\r\n            REMOVEFILTERS('tbl_item_bridge')\r\n        )\r\n    )\r\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "標準_原価合計",
+          "dataType": "Double",
+          "expression": "\r\nVAR SelectedDate = SELECTEDVALUE(tbl_date_bridge[F_作業日])\r\nRETURN\r\n    ROUND(\r\n        SUMX(tbl_item_bridge, ROUND(tbl_material_cost_snapshot_standard[標準_材料費(円貨)], 2)) +\r\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[標準_間接材料費], 2)) +\r\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[標準_直接労務費(円貨)], 2)) +\r\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[標準_間接労務費(円貨)], 2)) +\r\n        SUMX(tbl_item_bridge, ROUND(tbl_item_bridge[標準_製造経費(円貨)], 2)),\r\n        2\r\n    )\r\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot_standard",
+                "name": "標準_材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "差額_原価合計",
+          "dataType": "Double",
+          "expression": "[直近原価合計] - [標準_原価合計]",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "直近原価合計"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_sales",
+                "name": "標準_原価合計"
+              }
+            ]
+          }
+        },
+        {
+          "name": "実際_材料_総数量",
+          "dataType": "Double",
+          "expression": "\r\nSUMX (\r\n    FILTER (\r\n        tbl_sales,\r\n        NOT ISBLANK(tbl_sales[F_作業日]) &&\r\n        NOT ISBLANK(tbl_sales[F_在庫品目番号])\r\n    ),\r\n    VAR ItemNo = tbl_sales[F_在庫品目番号]\r\n    VAR SalesQty = tbl_sales[F_数量]\r\n    VAR MatQty =\r\n        SUMX (\r\n            FILTER (\r\n                tbl_BOM,\r\n                tbl_BOM[F_納入品目番号] = ItemNo\r\n            ),\r\n            tbl_BOM[数量]\r\n        )\r\n    RETURN\r\n        MatQty * SalesQty\r\n)\r\n",
+          "formatString": "#,0.00"
+        }
+      ]
+    },
+    {
+      "name": "tbl_labor_costs_indirect",
+      "measures": [
+        {
+          "name": "日付_間接労務費",
+          "dataType": "Double",
+          "expression": "\nVAR SelectedDate = MAX(tbl_date_bridge[F_作業日]) -- 選択された基準日\n\nRETURN \nMAXX(\n    FILTER(\n        tbl_labor_costs_indirect,\n        tbl_labor_costs_indirect[日付] <= SelectedDate\n    ),\n    tbl_labor_costs_indirect[日付]\n)",
+          "formatString": "General Number"
+        },
+        {
+          "name": "修正回路数_労務費",
+          "dataType": "Double",
+          "expression": "\nVAR LatestDate = [日付_間接労務費]\n\nRETURN \nIF(\n    ISBLANK(LatestDate), \n    BLANK(),\n    CALCULATE(\n        MAX(tbl_labor_costs_indirect[修正回路数]),\n        tbl_labor_costs_indirect[日付] = LatestDate\n    )\n)\n",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_indirect",
+                "name": "日付_間接労務費"
+              }
+            ]
+          }
+        },
+        {
+          "name": "間接労務費_明細",
+          "dataType": "Double",
+          "expression": "\nVAR LatestDate = [日付_間接労務費] -- 共通の日付フィルター\n\nRETURN \nIF(\n    ISBLANK(LatestDate), \n    BLANK(), -- 日付が未指定なら計算をスキップ\n\n    ROUND(\n        SUMX(\n            FILTER(\n                tbl_labor_costs_indirect,\n                tbl_labor_costs_indirect[日付] = LatestDate\n            ),\n            tbl_labor_costs_indirect[間接労務費]\n        ),\n        2\n    )\n)",
+          "formatString": "#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_indirect",
+                "name": "日付_間接労務費"
+              }
+            ]
+          }
+        },
+        {
+          "name": "1回路当たりの賃率_間接労務費",
+          "dataType": "Double",
+          "expression": "\nVAR LatestDate = [日付_間接労務費] -- 共通の日付フィルター\n\nRETURN \nIF(\n    ISBLANK(LatestDate), \n    BLANK(), -- 日付が未指定なら計算をスキップ\n\n    ROUND(\n        SUMX(\n            FILTER(\n                tbl_labor_costs_indirect,\n                tbl_labor_costs_indirect[日付] = LatestDate\n            ),\n            tbl_labor_costs_indirect[1回路あたり賃率]\n        ),\n        2\n    )\n)\n",
+          "formatString": "#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_indirect",
+                "name": "日付_間接労務費"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tbl_manufacturing_costs",
+      "measures": [
+        {
+          "name": "製造経費_メジャー",
+          "dataType": "Double",
+          "expression": "SUM(tbl_manufacturing_costs[製造経費])",
+          "formatString": "General Number"
+        }
+      ]
+    },
+    {
+      "name": "tbl_indirect_material_costs",
+      "measures": [
+        {
+          "name": "間接材料費_メジャー",
+          "dataType": "Double",
+          "expression": "SUM(tbl_indirect_material_costs[間接材料費])",
+          "formatString": "General Number"
+        }
+      ]
+    },
+    {
+      "name": "tbl_item_bridge",
+      "measures": [
+        {
+          "name": "直近材料費_old",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    ADDCOLUMNS (\n        tbl_sales,\n        \"MaterialCost\",\n            SUMX (\n                FILTER (\n                    tbl_BOM,\n                    tbl_BOM[F_納入品目番号] = tbl_sales[F_在庫品目番号]\n                ),\n                VAR MatNo = tbl_BOM[F_材料番号]\n                VAR QtyPer = tbl_BOM[数量]\n                VAR SaleDate = tbl_sales[F_作業日]\n                VAR UnitPrice =\n                    CALCULATE (\n                        MAX(tbl_material_price[仕入単価]),\n                        TOPN (\n                            1,\n                            FILTER (\n                                tbl_material_price,\n                                tbl_material_price[F_材料番号] = MatNo &&\n                                tbl_material_price[F_開始日] <= SaleDate\n                            ),\n                            tbl_material_price[F_開始日],\n                            DESC\n                        )\n                    )\n                RETURN\n                    QtyPer * UnitPrice\n            )\n    ),\n    [F_数量] * [MaterialCost]\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "直近_間接材料費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo   = tbl_sales[F_在庫品目番号]\n    VAR WorkDate = tbl_sales[F_作業日]\n    VAR Qty      = tbl_sales[F_数量]\n\n    -- 作業日以前の直近日付\n    VAR LatestIMDate =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_indirect_material_costs ),\n                    tbl_indirect_material_costs[品目番号] = ItemNo &&\n                    tbl_indirect_material_costs[日付] <= WorkDate\n                ),\n                tbl_indirect_material_costs[日付], DESC\n            ),\n            tbl_indirect_material_costs[日付]\n        )\n\n    -- 直近日付の全行を合算\n    VAR IMRows =\n        FILTER (\n            ALL ( tbl_indirect_material_costs ),\n            tbl_indirect_material_costs[品目番号] = ItemNo &&\n            tbl_indirect_material_costs[日付] = LatestIMDate\n        )\n\n    VAR UnitIM =\n        IF (\n            ISBLANK ( LatestIMDate ) || ISEMPTY ( IMRows ),\n            BLANK (),\n            SUMX ( IMRows, tbl_indirect_material_costs[間接材料費] )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitIM, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "標準_間接材料費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo       = tbl_sales[F_在庫品目番号]\n    VAR WorkDate     = tbl_sales[F_作業日]\n    VAR Qty          = tbl_sales[F_数量]\n    VAR BaselineDate = DATE ( YEAR ( WorkDate ) - 1, 12, 31 )\n\n    -- 基準日（前年12/31）以前の直近日付\n    VAR LatestIMDateStd =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_indirect_material_costs ),\n                    tbl_indirect_material_costs[品目番号] = ItemNo &&\n                    tbl_indirect_material_costs[日付] <= BaselineDate\n                ),\n                tbl_indirect_material_costs[日付], DESC\n            ),\n            tbl_indirect_material_costs[日付]\n        )\n\n    -- 直近日付の全行を合算\n    VAR IMRowsStd =\n        FILTER (\n            ALL ( tbl_indirect_material_costs ),\n            tbl_indirect_material_costs[品目番号] = ItemNo &&\n            tbl_indirect_material_costs[日付] = LatestIMDateStd\n        )\n\n    VAR UnitIM =\n        IF (\n            ISBLANK ( LatestIMDateStd ) || ISEMPTY ( IMRowsStd ),\n            BLANK (),\n            SUMX ( IMRowsStd, tbl_indirect_material_costs[間接材料費] )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitIM, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "標準_間接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo       = tbl_sales[F_在庫品目番号]\n    VAR WorkDate     = tbl_sales[F_作業日]\n    VAR Qty          = tbl_sales[F_数量]\n    VAR BaselineDate = DATE ( YEAR ( WorkDate ) - 1, 12, 31 )\n\n    -- 基準日（前年12/31）以前の直近日付\n    VAR LatestIndDateStd =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_labor_costs_indirect ),\n                    tbl_labor_costs_indirect[品目番号] = ItemNo &&\n                    tbl_labor_costs_indirect[日付] <= BaselineDate\n                ),\n                tbl_labor_costs_indirect[日付], DESC\n            ),\n            tbl_labor_costs_indirect[日付]\n        )\n\n    -- 直近日付の全行を合算対象に抽出\n    VAR IndRowsStd =\n        FILTER (\n            ALL ( tbl_labor_costs_indirect ),\n            tbl_labor_costs_indirect[品目番号] = ItemNo &&\n            tbl_labor_costs_indirect[日付] = LatestIndDateStd\n        )\n\n    -- レート（IDR）：LatestIndDateStd 以前の直近\n    VAR RateIDR =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_rate ),\n                    NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                    tbl_rate[月_レート] <= LatestIndDateStd\n                ),\n                tbl_rate[月_レート], DESC\n            ),\n            tbl_rate[IDR_レート]\n        )\n\n    -- 行ごとに換算してから合算（同日付は全件）\n    VAR UnitLaborJPY =\n        IF (\n            ISBLANK ( LatestIndDateStd ) || ISEMPTY ( IndRowsStd ),\n            BLANK (),\n            SUMX (\n                IndRowsStd,\n                tbl_labor_costs_indirect[間接労務費] *\n                    IF ( tbl_labor_costs_indirect[通貨] = \"IDR\", RateIDR, 1 )\n            )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitLaborJPY, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "標準_直接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo      = tbl_sales[F_在庫品目番号]\n    VAR WorkDate    = tbl_sales[F_作業日]\n    VAR Qty         = tbl_sales[F_数量]\n\n    -- 基準日：作業日の前年12月31日\n    VAR BaselineDate =\n        DATE ( YEAR ( WorkDate ) - 1, 12, 31 )\n\n    -- 基準日以前の直近（同日付は全件合算対象）\n    VAR LatestLaborDateStd =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_labor_costs_direct ),\n                    tbl_labor_costs_direct[品目番号] = ItemNo\n                        && tbl_labor_costs_direct[日付] <= BaselineDate\n                ),\n                tbl_labor_costs_direct[日付], DESC\n            ),\n            tbl_labor_costs_direct[日付]\n        )\n\n    VAR LaborRowsStd =\n        FILTER (\n            ALL ( tbl_labor_costs_direct ),\n            tbl_labor_costs_direct[品目番号] = ItemNo\n                && tbl_labor_costs_direct[日付] = LatestLaborDateStd\n        )\n\n    -- レート（IDR）：LatestLaborDateStd 以前の直近\n    VAR RateIDR =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_rate ),\n                    NOT ISBLANK ( tbl_rate[IDR_レート] )\n                        && tbl_rate[月_レート] <= LatestLaborDateStd\n                ),\n                tbl_rate[月_レート], DESC\n            ),\n            tbl_rate[IDR_レート]\n        )\n\n    -- 行ごとに換算してから合算（同日付は全件）\n    VAR UnitCostJPY =\n        IF (\n            ISBLANK ( LatestLaborDateStd ) || ISEMPTY ( LaborRowsStd ),\n            BLANK (),\n            SUMX (\n                LaborRowsStd,\n                tbl_labor_costs_direct[直接労務費]\n                    * IF ( tbl_labor_costs_direct[通貨] = \"IDR\", RateIDR, 1 )\n            )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitCostJPY, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "標準_製造経費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo       = tbl_sales[F_在庫品目番号]\n    VAR WorkDate     = tbl_sales[F_作業日]\n    VAR Qty          = tbl_sales[F_数量]\n    VAR BaselineDate = DATE ( YEAR ( WorkDate ) - 1, 12, 31 )\n\n    -- 基準日（前年12/31）以前の直近日付\n    VAR LatestMfgDateStd =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_manufacturing_costs ),\n                    tbl_manufacturing_costs[品目番号] = ItemNo &&\n                    tbl_manufacturing_costs[日付] <= BaselineDate\n                ),\n                tbl_manufacturing_costs[日付], DESC\n            ),\n            tbl_manufacturing_costs[日付]\n        )\n\n    -- 直近日付の全行を合算\n    VAR MfgRowsStd =\n        FILTER (\n            ALL ( tbl_manufacturing_costs ),\n            tbl_manufacturing_costs[品目番号] = ItemNo &&\n            tbl_manufacturing_costs[日付] = LatestMfgDateStd\n        )\n\n    -- レート（IDR）：LatestMfgDateStd 以前の直近\n    VAR RateIDR =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_rate ),\n                    NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                    tbl_rate[月_レート] <= LatestMfgDateStd\n                ),\n                tbl_rate[月_レート], DESC\n            ),\n            tbl_rate[IDR_レート]\n        )\n\n    -- 行ごとに換算してから合算（同日付は全件）\n    VAR UnitMfgJPY =\n        IF (\n            ISBLANK ( LatestMfgDateStd ) || ISEMPTY ( MfgRowsStd ),\n            BLANK (),\n            SUMX (\n                MfgRowsStd,\n                tbl_manufacturing_costs[製造経費] *\n                    IF ( tbl_manufacturing_costs[通貨] = \"IDR\", RateIDR, 1 )\n            )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitMfgJPY, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "標準_材料費_old",
+          "dataType": "Double",
+          "expression": "\r\nSUMX (\r\n    ADDCOLUMNS (\r\n        FILTER (\r\n            tbl_sales,\r\n            NOT ISBLANK(tbl_sales[F_作業日]) &&\r\n            NOT ISBLANK(tbl_sales[F_在庫品目番号])\r\n        ),\r\n        \"MaterialCost\",\r\n            VAR RefDate = DATE(YEAR(tbl_sales[F_作業日]) - 1, 12, 31)\r\n            VAR Materials =\r\n                FILTER (\r\n                    tbl_BOM,\r\n                    tbl_BOM[F_納入品目番号] = tbl_sales[F_在庫品目番号]\r\n                )\r\n            VAR WithPrice =\r\n                ADDCOLUMNS (\r\n                    Materials,\r\n                    \"UnitPrice\",\r\n                        CALCULATE (\r\n                            MAX(tbl_material_price[仕入単価]),\r\n                            FILTER (\r\n                                tbl_material_price,\r\n                                tbl_material_price[F_材料番号] = tbl_BOM[F_材料番号] &&\r\n                                tbl_material_price[F_開始日] <= RefDate\r\n                            )\r\n                        )\r\n                )\r\n            VAR MissingPrice =\r\n                COUNTROWS (\r\n                    FILTER (WithPrice, ISBLANK([UnitPrice]))\r\n                ) > 0\r\n            VAR Cost =\r\n                SUMX (\r\n                    WithPrice,\r\n                    [UnitPrice] * tbl_BOM[数量]\r\n                )\r\n            RETURN\r\n                IF (\r\n                    MissingPrice,\r\n                    BLANK(),\r\n                    Cost * tbl_sales[F_数量]\r\n                )\r\n    ),\r\n    [MaterialCost]  // BLANK はそのまま保持。合計にも反映される\r\n)\r\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "差額_材料費",
+          "dataType": "Double",
+          "expression": "[直近材料費(円貨)] - [標準_材料費(円貨)]",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot_standard",
+                "name": "標準_材料費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "差額_間接材料費",
+          "dataType": "Double",
+          "expression": "[直近_間接材料費] - [標準_間接材料費]\r\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接材料費"
+              }
+            ]
+          }
+        },
+        {
+          "name": "差額_間接労務費",
+          "dataType": "Double",
+          "expression": "[直近_間接労務費(円貨)] - [標準_間接労務費(円貨)]",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接労務費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "差額_直接労務費",
+          "dataType": "Double",
+          "expression": "[直近_直接労務費(円貨)] - [標準_直接労務費(円貨)]",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_直接労務費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "差額_製造経費",
+          "dataType": "Double",
+          "expression": "[直近_製造経費(円貨)] - [標準_製造経費(円貨)]",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_製造経費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "直近_直接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo   = tbl_sales[F_在庫品目番号]\n    VAR WorkDate = tbl_sales[F_作業日]\n    VAR Qty      = tbl_sales[F_数量]\n\n    -- 作業日以前の直近日付を特定\n    VAR LatestLaborDate =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_labor_costs_direct ),\n                    tbl_labor_costs_direct[品目番号] = ItemNo &&\n                    tbl_labor_costs_direct[日付] <= WorkDate\n                ),\n                tbl_labor_costs_direct[日付], DESC\n            ),\n            tbl_labor_costs_direct[日付]\n        )\n\n    -- 直近日付＝LatestLaborDate の行を全件抽出（同日付はすべて集計）\n    VAR LaborRows =\n        FILTER (\n            ALL ( tbl_labor_costs_direct ),\n            tbl_labor_costs_direct[品目番号] = ItemNo &&\n            tbl_labor_costs_direct[日付] = LatestLaborDate\n        )\n\n    -- WorkDate以前の直近レート（IDR用）\n    VAR RateIDR =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_rate ),\n                    NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                    tbl_rate[月_レート] <= WorkDate\n                ),\n                tbl_rate[月_レート], DESC\n            ),\n            tbl_rate[IDR_レート]\n        )\n\n    -- 同日付の行を合算（行ごとに通貨判定、IDRならRateIDRを適用）\n    VAR UnitCostJPY =\n        IF (\n            ISBLANK ( LatestLaborDate ) || ISEMPTY ( LaborRows ),\n            BLANK (),\n            SUMX (\n                LaborRows,\n                tbl_labor_costs_direct[直接労務費] *\n                    IF ( tbl_labor_costs_direct[通貨] = \"IDR\", RateIDR, 1 )\n            )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitCostJPY, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "直近_間接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo   = tbl_sales[F_在庫品目番号]\n    VAR WorkDate = tbl_sales[F_作業日]\n    VAR Qty      = tbl_sales[F_数量]\n\n    -- 作業日以前の直近日付\n    VAR LatestIndDate =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_labor_costs_indirect ),\n                    tbl_labor_costs_indirect[品目番号] = ItemNo &&\n                    tbl_labor_costs_indirect[日付] <= WorkDate\n                ),\n                tbl_labor_costs_indirect[日付], DESC\n            ),\n            tbl_labor_costs_indirect[日付]\n        )\n\n    -- 同日付は全件合算対象\n    VAR IndRows =\n        FILTER (\n            ALL ( tbl_labor_costs_indirect ),\n            tbl_labor_costs_indirect[品目番号] = ItemNo &&\n            tbl_labor_costs_indirect[日付] = LatestIndDate\n        )\n\n    -- レート（IDR）：WorkDate 以前の直近\n    VAR RateIDR =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_rate ),\n                    NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                    tbl_rate[月_レート] <= WorkDate\n                ),\n                tbl_rate[月_レート], DESC\n            ),\n            tbl_rate[IDR_レート]\n        )\n\n    -- 行ごとに換算して合算\n    VAR UnitLaborJPY =\n        IF (\n            ISBLANK ( LatestIndDate ) || ISEMPTY ( IndRows ),\n            BLANK (),\n            SUMX (\n                IndRows,\n                tbl_labor_costs_indirect[間接労務費] *\n                    IF ( tbl_labor_costs_indirect[通貨] = \"IDR\", RateIDR, 1 )\n            )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitLaborJPY, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "直近_製造経費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR ItemNo   = tbl_sales[F_在庫品目番号]\n    VAR WorkDate = tbl_sales[F_作業日]\n    VAR Qty      = tbl_sales[F_数量]\n\n    -- 作業日以前の直近日付\n    VAR LatestMfgDate =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_manufacturing_costs ),\n                    tbl_manufacturing_costs[品目番号] = ItemNo &&\n                    tbl_manufacturing_costs[日付] <= WorkDate\n                ),\n                tbl_manufacturing_costs[日付], DESC\n            ),\n            tbl_manufacturing_costs[日付]\n        )\n\n    -- 同日付は全件合算対象\n    VAR MfgRows =\n        FILTER (\n            ALL ( tbl_manufacturing_costs ),\n            tbl_manufacturing_costs[品目番号] = ItemNo &&\n            tbl_manufacturing_costs[日付] = LatestMfgDate\n        )\n\n    -- レート（IDR）：WorkDate 以前の直近\n    VAR RateIDR =\n        MAXX (\n            TOPN (\n                1,\n                FILTER (\n                    ALL ( tbl_rate ),\n                    NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                    tbl_rate[月_レート] <= WorkDate\n                ),\n                tbl_rate[月_レート], DESC\n            ),\n            tbl_rate[IDR_レート]\n        )\n\n    -- 行ごとに換算して合算\n    VAR UnitMfgJPY =\n        IF (\n            ISBLANK ( LatestMfgDate ) || ISEMPTY ( MfgRows ),\n            BLANK (),\n            SUMX (\n                MfgRows,\n                tbl_manufacturing_costs[製造経費] *\n                    IF ( tbl_manufacturing_costs[通貨] = \"IDR\", RateIDR, 1 )\n            )\n        )\n\n    RETURN\n        COALESCE ( Qty * UnitMfgJPY, 0 )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "見積_加工費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    ADDCOLUMNS (\n        tbl_sales,\n        \"Cost\",\n            CALCULATE (\n                SUM ( tbl_sales_estimate[加工費] ),\n                FILTER (\n                    tbl_sales_estimate,\n                        tbl_sales_estimate[F_在庫品目番号] = EARLIER ( tbl_sales[F_在庫品目番号] ) &&\n                        tbl_sales_estimate[提出日付] =\n                            CALCULATE (\n                                MAX ( tbl_sales_estimate[提出日付] ),\n                                FILTER (\n                                    tbl_sales_estimate,\n                                        tbl_sales_estimate[F_在庫品目番号] = EARLIER ( tbl_sales[F_在庫品目番号] ) &&\n                                        tbl_sales_estimate[提出日付] <= EARLIER ( tbl_sales[F_作業日] )\n                                )\n                            )\n                )\n            )\n    ),\n    [F_数量] * [Cost]\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "見積_管理費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    ADDCOLUMNS (\n        tbl_sales,\n        \"Cost\",\n            CALCULATE (\n                SUM ( tbl_sales_estimate[管理費] ),\n                FILTER (\n                    tbl_sales_estimate,\n                        tbl_sales_estimate[F_在庫品目番号] = EARLIER ( tbl_sales[F_在庫品目番号] ) &&\n                        tbl_sales_estimate[提出日付] =\n                            CALCULATE (\n                                MAX ( tbl_sales_estimate[提出日付] ),\n                                FILTER (\n                                    tbl_sales_estimate,\n                                        tbl_sales_estimate[F_在庫品目番号] = EARLIER ( tbl_sales[F_在庫品目番号] ) &&\n                                        tbl_sales_estimate[提出日付] <= EARLIER ( tbl_sales[F_作業日] )\n                                )\n                            )\n                )\n            )\n    ),\n    [F_数量] * [Cost]\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "見積_材料費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    ADDCOLUMNS (\n        tbl_sales,\n        \"Cost\",\n            CALCULATE (\n                SUM ( tbl_sales_estimate[材料費] ),\n                FILTER (\n                    tbl_sales_estimate,\n                        tbl_sales_estimate[F_在庫品目番号] = EARLIER ( tbl_sales[F_在庫品目番号] ) &&\n                        tbl_sales_estimate[提出日付] =\n                            CALCULATE (\n                                MAX ( tbl_sales_estimate[提出日付] ),\n                                FILTER (\n                                    tbl_sales_estimate,\n                                        tbl_sales_estimate[F_在庫品目番号] = EARLIER ( tbl_sales[F_在庫品目番号] ) &&\n                                        tbl_sales_estimate[提出日付] <= EARLIER ( tbl_sales[F_作業日] )\n                                )\n                            )\n                )\n            )\n    ),\n    [F_数量] * [Cost]\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "見積比較用_間接材料費",
+          "dataType": "Double",
+          "expression": "\nVAR Items = VALUES ( tbl_sales_estimate[F_在庫品目番号] )\nRETURN\nCALCULATE (\n    SUMX (\n        tbl_sales,\n        VAR ItemNo   = tbl_sales[F_在庫品目番号]\n        VAR WorkDate = tbl_sales[F_作業日]\n        VAR Qty      = tbl_sales[F_数量]\n\n        -- 作業日以前の直近日付\n        VAR LatestIMDate =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_indirect_material_costs ),\n                        tbl_indirect_material_costs[品目番号] = ItemNo &&\n                        tbl_indirect_material_costs[日付] <= WorkDate\n                    ),\n                    tbl_indirect_material_costs[日付], DESC\n                ),\n                tbl_indirect_material_costs[日付]\n            )\n\n        -- 直近日付の全行を合算\n        VAR IMRows =\n            FILTER (\n                ALL ( tbl_indirect_material_costs ),\n                tbl_indirect_material_costs[品目番号] = ItemNo &&\n                tbl_indirect_material_costs[日付] = LatestIMDate\n            )\n\n        VAR UnitIM =\n            IF (\n                ISBLANK ( LatestIMDate ) || ISEMPTY ( IMRows ),\n                BLANK (),\n                SUMX ( IMRows, tbl_indirect_material_costs[間接材料費] )\n            )\n\n        RETURN COALESCE ( Qty * UnitIM, 0 )\n    ),\n    -- 見積に存在する品目だけに tbl_sales を絞る\n    TREATAS ( Items, tbl_sales[F_在庫品目番号] )\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "見積比較用_間接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "\nVAR Items = VALUES ( tbl_sales_estimate[F_在庫品目番号] )\nRETURN\nCALCULATE (\n    SUMX (\n        tbl_sales,\n        VAR ItemNo   = tbl_sales[F_在庫品目番号]\n        VAR WorkDate = tbl_sales[F_作業日]\n        VAR Qty      = tbl_sales[F_数量]\n\n        -- 作業日以前の直近日付\n        VAR LatestIndDate =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_labor_costs_indirect ),\n                        tbl_labor_costs_indirect[品目番号] = ItemNo &&\n                        tbl_labor_costs_indirect[日付] <= WorkDate\n                    ),\n                    tbl_labor_costs_indirect[日付], DESC\n                ),\n                tbl_labor_costs_indirect[日付]\n            )\n\n        -- 直近日付の全行\n        VAR IndRows =\n            FILTER (\n                ALL ( tbl_labor_costs_indirect ),\n                tbl_labor_costs_indirect[品目番号] = ItemNo &&\n                tbl_labor_costs_indirect[日付] = LatestIndDate\n            )\n\n        -- レート（IDR）：LatestIndDate 以前の直近\n        VAR RateIDR =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_rate ),\n                        NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                        tbl_rate[月_レート] <= LatestIndDate\n                    ),\n                    tbl_rate[月_レート], DESC\n                ),\n                tbl_rate[IDR_レート]\n            )\n\n        -- 行ごと換算→合算\n        VAR UnitLaborJPY =\n            IF (\n                ISBLANK ( LatestIndDate ) || ISEMPTY ( IndRows ),\n                BLANK (),\n                SUMX (\n                    IndRows,\n                    tbl_labor_costs_indirect[間接労務費] *\n                        IF ( tbl_labor_costs_indirect[通貨] = \"IDR\", RateIDR, 1 )\n                )\n            )\n\n        RETURN COALESCE ( Qty * UnitLaborJPY, 0 )\n    ),\n    -- 見積に存在する品目だけに tbl_sales を絞る\n    TREATAS ( Items, tbl_sales[F_在庫品目番号] )\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "見積比較用_製造経費(円貨)",
+          "dataType": "Double",
+          "expression": "\nVAR Items = VALUES ( tbl_sales_estimate[F_在庫品目番号] )\nRETURN\nCALCULATE (\n    SUMX (\n        tbl_sales,\n        VAR ItemNo   = tbl_sales[F_在庫品目番号]\n        VAR WorkDate = tbl_sales[F_作業日]\n        VAR Qty      = tbl_sales[F_数量]\n\n        -- 作業日以前の直近日付\n        VAR LatestMfgDate =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_manufacturing_costs ),\n                        tbl_manufacturing_costs[品目番号] = ItemNo &&\n                        tbl_manufacturing_costs[日付] <= WorkDate\n                    ),\n                    tbl_manufacturing_costs[日付], DESC\n                ),\n                tbl_manufacturing_costs[日付]\n            )\n\n        -- 直近日付の全行を合算\n        VAR MfgRows =\n            FILTER (\n                ALL ( tbl_manufacturing_costs ),\n                tbl_manufacturing_costs[品目番号] = ItemNo &&\n                tbl_manufacturing_costs[日付] = LatestMfgDate\n            )\n\n        -- レート（IDR）：LatestMfgDate 以前の直近\n        VAR RateIDR =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_rate ),\n                        NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                        tbl_rate[月_レート] <= LatestMfgDate\n                    ),\n                    tbl_rate[月_レート], DESC\n                ),\n                tbl_rate[IDR_レート]\n            )\n\n        -- 行ごとに換算してから合算\n        VAR UnitMfgJPY =\n            IF (\n                ISBLANK ( LatestMfgDate ) || ISEMPTY ( MfgRows ),\n                BLANK (),\n                SUMX (\n                    MfgRows,\n                    tbl_manufacturing_costs[製造経費] *\n                        IF ( tbl_manufacturing_costs[通貨] = \"IDR\", RateIDR, 1 )\n                )\n            )\n\n        RETURN\n            COALESCE ( Qty * UnitMfgJPY, 0 )\n    ),\n    -- 見積に存在する品目だけに tbl_sales を絞り込む\n    TREATAS ( Items, tbl_sales[F_在庫品目番号] )\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "見積比較用_直接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "\nVAR Items = VALUES ( tbl_sales_estimate[F_在庫品目番号] )\nRETURN\nCALCULATE (\n    SUMX (\n        tbl_sales,\n        VAR ItemNo   = tbl_sales[F_在庫品目番号]\n        VAR WorkDate = tbl_sales[F_作業日]\n        VAR Qty      = tbl_sales[F_数量]\n\n        -- 作業日以前の直近日付\n        VAR LatestLaborDate =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_labor_costs_direct ),\n                        tbl_labor_costs_direct[品目番号] = ItemNo &&\n                        tbl_labor_costs_direct[日付] <= WorkDate\n                    ),\n                    tbl_labor_costs_direct[日付], DESC\n                ),\n                tbl_labor_costs_direct[日付]\n            )\n\n        -- 直近日付の全行を合算\n        VAR LaborRows =\n            FILTER (\n                ALL ( tbl_labor_costs_direct ),\n                tbl_labor_costs_direct[品目番号] = ItemNo &&\n                tbl_labor_costs_direct[日付] = LatestLaborDate\n            )\n\n        -- レート（IDR）：LatestLaborDate 以前の直近\n        VAR RateIDR =\n            MAXX (\n                TOPN (\n                    1,\n                    FILTER (\n                        ALL ( tbl_rate ),\n                        NOT ISBLANK ( tbl_rate[IDR_レート] ) &&\n                        tbl_rate[月_レート] <= LatestLaborDate\n                    ),\n                    tbl_rate[月_レート], DESC\n                ),\n                tbl_rate[IDR_レート]\n            )\n\n        -- 行ごとに換算してから合算\n        VAR UnitCostJPY =\n            IF (\n                ISBLANK ( LatestLaborDate ) || ISEMPTY ( LaborRows ),\n                BLANK (),\n                SUMX (\n                    LaborRows,\n                    tbl_labor_costs_direct[直接労務費] *\n                        IF ( tbl_labor_costs_direct[通貨] = \"IDR\", RateIDR, 1 )\n                )\n            )\n\n        RETURN\n            COALESCE ( Qty * UnitCostJPY, 0 )\n    ),\n    -- 見積に存在する品目だけに tbl_sales を絞る\n    TREATAS ( Items, tbl_sales[F_在庫品目番号] )\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "old_直近_直接労務費(円貨)",
+          "dataType": "Double",
+          "expression": "SUMX ( ADDCOLUMNS ( tbl_sales, \"RefDate_DirectLaborCost\", SUMX ( FILTER ( tbl_labor_costs_direct, tbl_labor_costs_direct[品目番号] = EARLIER(tbl_sales[F_在庫品目番号]) && tbl_labor_costs_direct[日付] = CALCULATE ( MAX(tbl_labor_costs_direct[日付]), FILTER ( tbl_labor_costs_direct, tbl_labor_costs_direct[品目番号] = EARLIER(tbl_sales[F_在庫品目番号]) && tbl_labor_costs_direct[日付] <= EARLIER(tbl_sales[F_作業日]) ) ) ), [直接労務費] * IF ( [通貨] = \"IDR\", CALCULATE ( MIN(tbl_rate[IDR_レート]), FILTER ( tbl_rate, tbl_rate[月_レート] >= [日付] ) ), 1 ) ) ), [F_数量] * [RefDate_DirectLaborCost] )",
+          "formatString": "General Number"
+        }
+      ]
+    },
+    {
+      "name": "tbl_BOM",
+      "measures": [
+        {
+          "name": "売上数x材料数×仕入単価",
+          "dataType": "Double",
+          "expression": "\r\nSUMX(\r\n    tbl_sales,\r\n    VAR RefDate = tbl_sales[F_作業日]\r\n    VAR SalesQty = tbl_sales[F_数量]\r\n    VAR ItemNo = tbl_sales[F_在庫品目番号]\r\n    VAR BOMRows =\r\n        FILTER (\r\n            tbl_BOM,\r\n            tbl_BOM[F_納入品目番号] = ItemNo\r\n        )\r\n    VAR BOMWithPrice =\r\n        ADDCOLUMNS (\r\n            BOMRows,\r\n            \"UnitPrice\",\r\n                CALCULATE (\r\n                    MAX(tbl_material_price[仕入単価]),\r\n                    FILTER (\r\n                        tbl_material_price,\r\n                        tbl_material_price[F_材料番号] = tbl_BOM[F_材料番号] &&\r\n                        tbl_material_price[F_開始日] <= RefDate\r\n                    )\r\n                )\r\n        )\r\n    VAR HasMissingPrice =\r\n        COUNTROWS (\r\n            FILTER (BOMWithPrice, ISBLANK([UnitPrice]))\r\n        ) > 0\r\n    RETURN\r\n        IF (\r\n            HasMissingPrice,\r\n            BLANK(),\r\n            SUMX (\r\n                BOMWithPrice,\r\n                [UnitPrice] * tbl_BOM[数量]\r\n            ) * SalesQty\r\n        )\r\n)\r\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "取得されたF_開始日",
+          "dataType": "Double",
+          "expression": "\r\nSUMX(\r\n    tbl_sales,\r\n    VAR RefDate = tbl_sales[F_作業日]\r\n\r\n    RETURN\r\n        MAXX(\r\n            TOPN(\r\n                1,\r\n                FILTER(\r\n                    tbl_material_price,\r\n                    tbl_material_price[F_材料番号] = SELECTEDVALUE('tbl_BOM'[F_材料番号]) &&\r\n                    tbl_material_price[F_開始日] <= RefDate\r\n                ),\r\n                tbl_material_price[F_開始日],\r\n                DESC\r\n            ),\r\n            tbl_material_price[F_開始日]\r\n        )\r\n)\r\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "取得された仕入単価",
+          "dataType": "Double",
+          "expression": "\r\nSUMX(\r\n    tbl_sales,\r\n    VAR RefDate = tbl_sales[F_作業日]\r\n    VAR ItemNo = tbl_sales[F_在庫品目番号]\r\n    VAR SalesQty = tbl_sales[F_数量]\r\n\r\n    VAR BOMRows =\r\n        FILTER(\r\n            tbl_BOM,\r\n            tbl_BOM[F_納入品目番号] = ItemNo\r\n        )\r\n\r\n    VAR BOMWithPrice =\r\n        ADDCOLUMNS(\r\n            BOMRows,\r\n            \"UnitPrice\",\r\n            VAR MatNo = tbl_BOM[F_材料番号]\r\n            VAR ClosestStartDate =\r\n                MAXX(\r\n                    TOPN(\r\n                        1,\r\n                        FILTER(\r\n                            tbl_material_price,\r\n                            tbl_material_price[F_材料番号] = MatNo &&\r\n                            tbl_material_price[F_開始日] <= RefDate\r\n                        ),\r\n                        tbl_material_price[F_開始日],\r\n                        DESC\r\n                    ),\r\n                    tbl_material_price[F_開始日]\r\n                )\r\n            RETURN\r\n                CALCULATE(\r\n                    MAX(tbl_material_price[仕入単価]),\r\n                    tbl_material_price[F_材料番号] = MatNo &&\r\n                    tbl_material_price[F_開始日] = ClosestStartDate\r\n                )\r\n        )\r\n\r\n    VAR HasMissing =\r\n        COUNTROWS(\r\n            FILTER(BOMWithPrice, ISBLANK([UnitPrice]))\r\n        ) > 0\r\n\r\n    RETURN\r\n        IF(\r\n            HasMissing,\r\n            BLANK(),\r\n            SUMX(\r\n                BOMWithPrice,\r\n                [UnitPrice] * tbl_BOM[数量]\r\n            ) * SalesQty\r\n        )\r\n)\r\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "取得された仕入数量",
+          "dataType": "Double",
+          "expression": "\r\nSUMX(\r\n    tbl_sales,\r\n    VAR RefDate = tbl_sales[F_作業日]\r\n    VAR ItemNo = tbl_sales[F_在庫品目番号]\r\n\r\n    VAR BOMRows =\r\n        FILTER(\r\n            tbl_BOM,\r\n            tbl_BOM[F_納入品目番号] = ItemNo\r\n        )\r\n\r\n    RETURN\r\n        SUMX(\r\n            BOMRows,\r\n            tbl_BOM[数量]\r\n        )\r\n)\r\n",
+          "formatString": "General Number"
+        }
+      ]
+    },
+    {
+      "name": "tbl_labor_costs_direct",
+      "measures": [
+        {
+          "name": "直近_修正回路数_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = tbl_sales[F_作業日]\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR Result =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[修正回路数]\n        )\n    RETURN\n        Result\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "直近_1回路あたりの時間_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = tbl_sales[F_作業日]\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR TimePerUnit =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[1回路あたり時間（秒）]\n        )\n    RETURN\n        IF (\n            ISBLANK(TimePerUnit),\n            BLANK(),\n            ROUND(TimePerUnit, 2)\n        )\n)\n",
+          "formatString": "0.0"
+        },
+        {
+          "name": "標準_1回路あたりの時間_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = DATE(YEAR(tbl_sales[F_作業日]) - 1, 12, 31)\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR TimePerUnit =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[1回路あたり時間（秒）]\n        )\n    RETURN\n        IF (\n            ISBLANK(TimePerUnit),\n            BLANK(),\n            ROUND(TimePerUnit, 2)\n        )\n)\n",
+          "formatString": "0.0"
+        },
+        {
+          "name": "標準_修正回路数_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = DATE(YEAR(tbl_sales[F_作業日]) - 1, 12, 31)\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR Result =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[修正回路数]\n        )\n    RETURN\n        Result\n)\n",
+          "formatString": "General Number"
+        },
+        {
+          "name": "直近_賃率_秒_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = tbl_sales[F_作業日]\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR Result =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[賃率/秒]\n        )\n    RETURN\n        Result\n)\n",
+          "formatString": "0.0"
+        },
+        {
+          "name": "標準_賃率_秒_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = DATE(YEAR(tbl_sales[F_作業日]) - 1, 12, 31)\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR Result =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[賃率/秒]\n        )\n    RETURN\n        Result\n)\n",
+          "formatString": "0.0"
+        },
+        {
+          "name": "直近_作業時間_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = tbl_sales[F_作業日]\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR Result =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[作業時間]\n        )\n    RETURN\n        Result\n)\n",
+          "formatString": "0.0"
+        },
+        {
+          "name": "標準_作業時間_直接労務費",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_sales,\n    VAR TargetItem = tbl_sales[F_在庫品目番号]\n    VAR RefDate = DATE(YEAR(tbl_sales[F_作業日]) - 1, 12, 31)\n    VAR OneRow =\n        TOPN (\n            1,\n            FILTER (\n                tbl_labor_costs_direct,\n                tbl_labor_costs_direct[品目番号] = TargetItem &&\n                tbl_labor_costs_direct[日付] <= RefDate\n            ),\n            tbl_labor_costs_direct[日付],\n            DESC\n        )\n    VAR Result =\n        MAXX (\n            OneRow,\n            tbl_labor_costs_direct[作業時間]\n        )\n    RETURN\n        Result\n)\n",
+          "formatString": "0.0"
+        },
+        {
+          "name": "賃率差分",
+          "dataType": "Double",
+          "expression": "[直近_賃率_秒_直接労務費] - [標準_賃率_秒_直接労務費]",
+          "formatString": "0.0",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_direct",
+                "name": "直近_賃率_秒_直接労務費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_direct",
+                "name": "標準_賃率_秒_直接労務費"
+              }
+            ]
+          }
+        },
+        {
+          "name": "1回路あたり時間差分",
+          "dataType": "Double",
+          "expression": "[直近_1回路あたりの時間_直接労務費] - [標準_1回路あたりの時間_直接労務費] ",
+          "formatString": "0.0",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_direct",
+                "name": "直近_1回路あたりの時間_直接労務費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_labor_costs_direct",
+                "name": "標準_1回路あたりの時間_直接労務費"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tbl_cost_categories",
+      "measures": [
+        {
+          "name": "費目_見積比較用_直近",
+          "dataType": "Double",
+          "expression": "\nSWITCH(\n    SELECTEDVALUE(tbl_cost_categories[費目]),\n    \"材料費\", [見積比較用_直近材料費(円貨)],\n    \"直接労務費\", [見積比較用_直接労務費(円貨)],\n    \"間接労務費\", [見積比較用_間接労務費(円貨)],\n    \"間接材料費\", [見積比較用_間接材料費],\n    \"製造経費\", [見積比較用_製造経費(円貨)],\n    BLANK()\n)\n",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "見積比較用_直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "費目_標準",
+          "dataType": "Double",
+          "expression": "\r\nSWITCH(\r\n    SELECTEDVALUE(tbl_cost_categories[費目]),\r\n    \"材料費\", [標準_材料費(円貨)],\r\n    \"直接労務費\", [標準_直接労務費(円貨)],\r\n    \"間接労務費\", [標準_間接労務費(円貨)],\r\n    \"間接材料費\", [標準_間接材料費],\r\n    \"製造経費\", [標準_製造経費(円貨)],\r\n    BLANK()\r\n)",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot_standard",
+                "name": "標準_材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "費目_差額",
+          "dataType": "Double",
+          "expression": "\nSWITCH(\n    SELECTEDVALUE(tbl_cost_categories[費目]),\n    \"材料費\", [直近材料費(円貨)] - [標準_材料費(円貨)],\n    \"直接労務費\", [直近_直接労務費(円貨)] - [標準_直接労務費(円貨)],\n    \"間接労務費\", [直近_間接労務費(円貨)] - [標準_間接労務費(円貨)],\n    \"間接材料費\", [直近_間接材料費] - [標準_間接労務費(円貨)],\n    \"製造経費\", [直近_製造経費(円貨)] - [標準_製造経費(円貨)],\n    BLANK()\n)\n",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot_standard",
+                "name": "標準_材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_製造経費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "費目_差額率",
+          "dataType": "Double",
+          "expression": "\nVAR latest =\n    SWITCH(\n        SELECTEDVALUE(tbl_cost_categories[費目]),\n        \"材料費\", [直近材料費(円貨)],\n        \"直接労務費\", [直近_直接労務費(円貨)],\n        \"間接労務費\", [直近_間接労務費(円貨)],\n        \"間接材料費\", [直近_間接材料費],\n        \"製造経費\", [直近_製造経費(円貨)]\n    )\n\nVAR standard =\n    SWITCH(\n        SELECTEDVALUE(tbl_cost_categories[費目]),\n        \"材料費\", [標準_材料費(円貨)],\n        \"直接労務費\", [標準_直接労務費(円貨)],\n        \"間接労務費\", [標準_間接労務費(円貨)],\n        \"間接材料費\", [標準_間接材料費],\n        \"製造経費\", [標準_製造経費(円貨)]\n    )\n\nRETURN\nIF(\n    ISBLANK(standard),\n    BLANK(),\n    DIVIDE(latest - standard, standard)\n)\n",
+          "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_製造経費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot_standard",
+                "name": "標準_材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "標準_製造経費(円貨)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "費目(3)_見積",
+          "dataType": "Double",
+          "expression": "\nSWITCH(\n    SELECTEDVALUE(tbl_cost_categories[費目]),\n    \"材料費\", [見積_材料費],\n    \"加工費\", [見積_加工費],\n    \"管理費\", [見積_管理費],\n    BLANK()\n)\n",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積_材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積_加工費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積_管理費"
+              }
+            ]
+          }
+        },
+        {
+          "name": "費目(3)_直近",
+          "dataType": "Double",
+          "expression": "\nSWITCH(\n    SELECTEDVALUE(tbl_cost_categories[費目]),\n    \"材料費\", [見積比較用_直近材料費(円貨)],\n    \"加工費\", [見積比較用_直接労務費(円貨)]+[見積比較用_製造経費(円貨)],\n    \"管理費\", [見積比較用_間接労務費(円貨)]+[見積比較用_間接材料費],\n    BLANK()\n)",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "見積比較用_直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_製造経費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "見積比較用_間接材料費"
+              }
+            ]
+          }
+        },
+        {
+          "name": "費目_直近",
+          "dataType": "Double",
+          "expression": "\nSWITCH(\n    SELECTEDVALUE(tbl_cost_categories[費目]),\n    \"材料費\", [直近材料費(円貨)],\n    \"直接労務費\", [直近_直接労務費(円貨)],\n    \"間接労務費\", [直近_間接労務費(円貨)],\n    \"間接材料費\", [直近_間接材料費],\n    \"製造経費\", [直近_製造経費(円貨)],\n    BLANK()\n)",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "直近材料費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_直接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接労務費(円貨)"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_間接材料費"
+              },
+              {
+                "schema": "extension",
+                "entity": "tbl_item_bridge",
+                "name": "直近_製造経費(円貨)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tbl_material_cost_snapshot",
+      "measures": [
+        {
+          "name": "直近材料費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_material_cost_snapshot,\n    tbl_material_cost_snapshot[材料費合計] *\n        SWITCH (\n            TRUE(),\n            tbl_material_cost_snapshot[データ取得元] = \"BEI\",\n                LOOKUPVALUE(\n                    tbl_rate[IDR_レート],\n                    tbl_rate[月_レート],\n                        CALCULATE(\n                            MAX(tbl_rate[月_レート]),\n                            FILTER(\n                                tbl_rate,\n                                tbl_rate[月_レート] <= RELATED(tbl_date_bridge[F_作業日])\n                            )\n                        )\n                ),\n            tbl_material_cost_snapshot[データ取得元] = \"BEE\", 1,\n            BLANK()\n        )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        },
+        {
+          "name": "見積比較用_直近材料費(円貨)",
+          "dataType": "Double",
+          "expression": "\nVAR Items = VALUES( tbl_sales_estimate[F_在庫品目番号] )\nRETURN\nCALCULATE (\n    [直近材料費(円貨)],                                 // 既存の換算メジャー\n    TREATAS ( Items, tbl_sales[F_在庫品目番号] ),        // 品目のフィルタを Sales へ注入\n    USERELATIONSHIP(                                    // （必要なら）スナップショット↔Sales を有効化\n        tbl_material_cost_snapshot[F_Sales_ID],\n        tbl_sales[F_Sales_ID]\n    )\n    // リレーションが片方向で詰まる場合は、代わりに↓\n    // CROSSFILTER( tbl_material_cost_snapshot[F_Sales_ID], tbl_sales[F_Sales_ID], BOTH )\n)\n",
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "tbl_material_cost_snapshot",
+                "name": "直近材料費(円貨)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tbl_material_cost_snapshot_standard",
+      "measures": [
+        {
+          "name": "標準_材料費(円貨)",
+          "dataType": "Double",
+          "expression": "\nSUMX (\n    tbl_material_cost_snapshot_standard,\n    tbl_material_cost_snapshot_standard[材料費合計] *\n        SWITCH (\n            TRUE(),\n            tbl_material_cost_snapshot_standard[データ取得元] = \"BEI\",\n                LOOKUPVALUE(\n                    tbl_rate[IDR_レート],\n                    tbl_rate[月_レート],\n                        CALCULATE(\n                            MAX(tbl_rate[月_レート]),\n                            FILTER(\n                                tbl_rate,\n                                tbl_rate[月_レート] <= DATE(YEAR(RELATED(tbl_date_bridge[F_作業日])) - 1, 12, 31)\n                            )\n                        )\n                ),\n            tbl_material_cost_snapshot_standard[データ取得元] = \"BEE\", 1,\n            BLANK()\n        )\n)\n",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        }
+      ]
+    },
+    {
+      "name": "tbl_sales_HE_Eksport",
+      "measures": [
+        {
+          "name": "current_priice*F_数量",
+          "dataType": "Double",
+          "expression": "\r\nSUMX(\r\n    tbl_sales,\r\n    tbl_sales[F_数量] *\r\n        LOOKUPVALUE(\r\n            tbl_sales_HE_Eksport[current_price],\r\n            tbl_sales_HE_Eksport[no_assy], tbl_sales[F_在庫品目番号]\r\n        )\r\n)",
+          "formatString": "\"¥\"#,0.00;-\"¥\"#,0.00;\"¥\"#,0.00"
+        }
+      ]
+    }
+  ]
+}

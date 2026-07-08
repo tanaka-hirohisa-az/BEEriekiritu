@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "28ba4fec259e488951a9",
+  "displayName": "BEIデータ突合",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "45af89cd809bbdff971b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_item_bridge"
+              }
+            },
+            "Property": "F_在庫品目番号"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "2b448c9f2ac621e040ea",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_sales_HE_Eksport"
+              }
+            },
+            "Property": "no_assy"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "tbl_sales_HE_Eksport",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t"
+                            }
+                          },
+                          "Property": "no_assy"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "b30a4e169a6a7190c138",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "6e03291fd9d07c34a37a",
+        "boundFilter": "45af89cd809bbdff971b",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "tbl_item_bridge"
+              }
+            },
+            "Property": "F_在庫品目番号"
+          }
+        }
+      }
+    ],
+    "referenceScope": "CrossReport",
+    "acceptsFilterContext": "None"
+  },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "204L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "a9718cbbeb31470da898",
+      "target": "67f72d830a8edd3227eb",
+      "type": "DataFilter"
+    },
+    {
+      "source": "a9718cbbeb31470da898",
+      "target": "0483e87eb1473077621e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "67f72d830a8edd3227eb",
+      "target": "0483e87eb1473077621e",
+      "type": "DataFilter"
+    },
+    {
+      "source": "a9718cbbeb31470da898",
+      "target": "a1b5fa8a2597bc50e59c",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0483e87eb1473077621e",
+      "target": "a1b5fa8a2597bc50e59c",
+      "type": "DataFilter"
+    },
+    {
+      "source": "43941fccda59e3a047b3",
+      "target": "67f72d830a8edd3227eb",
+      "type": "DataFilter"
+    },
+    {
+      "source": "43941fccda59e3a047b3",
+      "target": "a1b5fa8a2597bc50e59c",
+      "type": "DataFilter"
+    }
+  ]
+}

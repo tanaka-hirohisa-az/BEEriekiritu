@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "a1b5fa8a2597bc50e59c",
+  "position": {
+    "x": 377,
+    "y": 0,
+    "z": 8000,
+    "height": 187,
+    "width": 600,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "lineClusteredColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tbl_sales_HE_Eksport"
+                    }
+                  },
+                  "Property": "no_assy"
+                }
+              },
+              "queryRef": "tbl_sales_HE_Eksport.no_assy",
+              "nativeQueryRef": "no_assy",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "tbl_sales_HE_Eksport"
+                        }
+                      },
+                      "Property": "profit_per_assy"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(tbl_sales_HE_Eksport.profit_per_assy)",
+              "nativeQueryRef": "profit_per_assy の合計"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "tbl_sales_HE_Eksport"
+                        }
+                      },
+                      "Property": "pct_profit"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(tbl_sales_HE_Eksport.pct_profit)",
+              "nativeQueryRef": "pct_profit の合計"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "tbl_sales_HE_Eksport"
+                      }
+                    },
+                    "Property": "profit_per_assy"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "cc18beddc35e8624d84f",
+  "displayName": "ページ 3",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "b148f5d6d721494f1bfa",
+    "type": "Default",
+    "parameters": [],
+    "referenceScope": "CrossReport",
+    "acceptsFilterContext": "None"
+  },
+  "visualInteractions": [
+    {
+      "source": "55b2125e0a17fb9b997f",
+      "target": "318b0a370f8bf4810b49",
+      "type": "DataFilter"
+    },
+    {
+      "source": "55b2125e0a17fb9b997f",
+      "target": "e7607058f894e33e0c17",
+      "type": "DataFilter"
+    }
+  ]
+}
