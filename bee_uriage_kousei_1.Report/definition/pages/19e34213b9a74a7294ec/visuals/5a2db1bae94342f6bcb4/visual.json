@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "5a2db1bae94342f6bcb4",
+  "position": {
+    "x": 640,
+    "y": 0,
+    "z": 1002,
+    "width": 305,
+    "height": 90,
+    "tabOrder": 1002
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Dim_品目" }
+                  },
+                  "Property": "在庫区分"
+                }
+              },
+              "queryRef": "Dim_品目.在庫区分",
+              "nativeQueryRef": "在庫区分"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        { "properties": { "selfFilterEnabled": { "expr": { "Literal": { "Value": "true" } } } } }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        { "properties": { "text": { "expr": { "Literal": { "Value": "'在庫区分'" } } } } }
+      ]
+    }
+  }
+}

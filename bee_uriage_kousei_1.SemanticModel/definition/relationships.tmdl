@@ -1,0 +1,16 @@
+relationship ba3789e6-a716-42c7-9969-e08dd70107f8
+	fromColumn: Fact_売上実績.品目コード
+	toColumn: Dim_品目.品目コード
+
+relationship 2dc2bc74-5bf7-40fa-b43b-b6f6ad41cd8c
+	fromColumn: Fact_売上実績.得意先番号
+	toColumn: Dim_得意先.得意先番号
+
+relationship c548b40a-6a1e-48e6-a4ee-d96a977bffa3
+	fromColumn: Fact_売上実績.年月
+	toColumn: Dim_カレンダー.年月
+
+relationship a4fef222-9728-4ac0-8496-66eee0f3e54f
+	fromColumn: Dim_品目.主要仕入先番号
+	toColumn: Dim_仕入先.仕入先番号
+

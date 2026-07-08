@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "b14d11eba425469fa700",
+  "position": {
+    "x": 320,
+    "y": 0,
+    "z": 1001,
+    "width": 305,
+    "height": 90,
+    "tabOrder": 1001
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Dim_得意先" }
+                  },
+                  "Property": "得意先区分"
+                }
+              },
+              "queryRef": "Dim_得意先.得意先区分",
+              "nativeQueryRef": "得意先区分"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        { "properties": { "selfFilterEnabled": { "expr": { "Literal": { "Value": "true" } } } } }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        { "properties": { "text": { "expr": { "Literal": { "Value": "'得意先区分'" } } } } }
+      ]
+    }
+  }
+}

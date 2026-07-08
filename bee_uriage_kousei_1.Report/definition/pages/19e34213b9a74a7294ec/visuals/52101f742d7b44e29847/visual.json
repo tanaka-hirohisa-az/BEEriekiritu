@@ -1,0 +1,65 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "52101f742d7b44e29847",
+  "position": {
+    "x": 860,
+    "y": 220,
+    "z": 1009,
+    "width": 400,
+    "height": 240,
+    "tabOrder": 1009
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": { "SourceRef": { "Entity": "Dim_品目" } },
+                  "Property": "仕入区分"
+                }
+              },
+              "queryRef": "Dim_品目.仕入区分",
+              "nativeQueryRef": "仕入区分"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": { "SourceRef": { "Entity": "Fact_売上実績" } },
+                  "Property": "利益率"
+                }
+              },
+              "queryRef": "Fact_売上実績.利益率",
+              "nativeQueryRef": "利益率"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": { "SourceRef": { "Entity": "Fact_売上実績" } },
+                "Property": "利益率"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        { "properties": { "text": { "expr": { "Literal": { "Value": "'仕入区分別 利益率'" } } } } }
+      ]
+    }
+  }
+}

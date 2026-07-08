@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "abb731c2200f4e3b9220",
+  "position": {
+    "x": 420,
+    "y": 100,
+    "z": 1006,
+    "width": 200,
+    "height": 110,
+    "tabOrder": 1006
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": { "SourceRef": { "Entity": "Fact_売上実績" } },
+                  "Property": "原価カバー率"
+                }
+              },
+              "queryRef": "Fact_売上実績.原価カバー率",
+              "nativeQueryRef": "原価カバー率"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        { "properties": { "text": { "expr": { "Literal": { "Value": "'原価カバー率'" } } } } }
+      ]
+    }
+  }
+}

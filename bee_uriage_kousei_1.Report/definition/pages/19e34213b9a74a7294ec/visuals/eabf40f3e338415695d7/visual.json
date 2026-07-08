@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "eabf40f3e338415695d7",
+  "position": {
+    "x": 0,
+    "y": 100,
+    "z": 1004,
+    "width": 200,
+    "height": 110,
+    "tabOrder": 1004
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": { "SourceRef": { "Entity": "Fact_売上実績" } },
+                  "Property": "売上高"
+                }
+              },
+              "queryRef": "Fact_売上実績.売上高",
+              "nativeQueryRef": "売上高"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        { "properties": { "text": { "expr": { "Literal": { "Value": "'売上高'" } } } } }
+      ]
+    }
+  }
+}

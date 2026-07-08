@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "bee_uriage_kousei_1"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "80d11e9b-e103-4e30-aa9f-e5b05cee607e"
+  }
+}
