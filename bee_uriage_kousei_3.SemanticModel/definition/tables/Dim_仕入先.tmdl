@@ -1,0 +1,29 @@
+table Dim_仕入先
+	lineageTag: 6db3f655-b851-4158-b6cc-f7a0877d661d
+
+	column 仕入先番号
+		dataType: string
+		lineageTag: 827e9e9d-fb7b-4d37-a662-5dba09146521
+		summarizeBy: none
+		sourceColumn: 仕入先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入先名称
+		dataType: string
+		lineageTag: 860e70d4-c2a1-400f-ac3a-6a1d41aa5ef1
+		summarizeBy: none
+		sourceColumn: 仕入先名称
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_仕入先 = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT TRIM(F_仕入先番号) AS 仕入先番号, MAX(F_仕入先名称) AS 仕入先名称 FROM PRONES.TB_仕入先情報 GROUP BY TRIM(F_仕入先番号)")
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

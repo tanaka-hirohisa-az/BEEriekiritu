@@ -1,0 +1,53 @@
+table Dim_品目
+	lineageTag: 0b5b7c6f-b2c9-430a-b01f-4232c3766c93
+
+	column 品目コード
+		dataType: string
+		lineageTag: d456bf75-59a6-4892-bc6b-abf246d41701
+		summarizeBy: none
+		sourceColumn: 品目コード
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目名称
+		dataType: string
+		lineageTag: 712bb5e2-0ea2-4743-9b6e-8be55380b1e6
+		summarizeBy: none
+		sourceColumn: 品目名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目区分
+		dataType: string
+		lineageTag: 4a1f3f94-68c4-4be6-9f52-b37a248d58d1
+		summarizeBy: none
+		sourceColumn: 品目区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 主要仕入先番号
+		dataType: string
+		lineageTag: 6e5a65a9-53e7-4500-b177-6444b16c5e9e
+		summarizeBy: none
+		sourceColumn: 主要仕入先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入区分
+		dataType: string
+		lineageTag: ee692e75-0bfa-4071-afdb-708784aaa84c
+		summarizeBy: none
+		sourceColumn: 仕入区分
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_品目 = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( WITH sold_items AS (SELECT DISTINCT TRIM(F_在庫品目番号) AS 品目コード FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01' AND TRIM(F_在庫品目番号) NOT IN ('99999','N-99999')), primary_supplier AS (SELECT 品目コード, 仕入先番号 FROM (SELECT TRIM(F_品目番号) AS 品目コード, TRIM(F_指示先番号) AS 仕入先番号, SUM(F_金額) AS 金額, ROW_NUMBER() OVER (PARTITION BY TRIM(F_品目番号) ORDER BY SUM(F_金額) DESC) AS rn FROM PRONES.TB_仕入実績情報 WHERE TRIM(F_品目番号) NOT IN ('99999','N-99999') GROUP BY TRIM(F_品目番号), TRIM(F_指示先番号)) WHERE rn = 1) SELECT si.品目コード, NVL(MAX(i.F_品目名称), si.品目コード) AS 品目名称, NVL(MAX(c.F_分類名), 'その他/コード外') AS 品目区分, ps.仕入先番号 AS 主要仕入先番号, CASE WHEN ps.仕入先番号 IS NULL THEN 'その他' WHEN ps.仕入先番号 IN ('2000001','2000002','2000004','2000005','2000006','2000007') THEN 'BEI' ELSE '外部仕入' END AS 仕入区分 FROM sold_items si LEFT JOIN PRONES.TB_納入品目情報 i ON TRIM(i.F_在庫用品目番号) = si.品目コード LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号) = TRIM(i.F_品目分類) LEFT JOIN primary_supplier ps ON ps.品目コード = si.品目コード GROUP BY si.品目コード, ps.仕入先番号 ) q")
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,115 @@
+table Fact_売上実績
+	lineageTag: 3fa4ad82-9ba5-4597-88eb-64b2ae08c26a
+
+	measure 売上高 = SUM('Fact_売上実績'[金額])
+		formatString: #,##0
+		lineageTag: 6522abcf-36e7-4f08-a23f-e87dcb27e19b
+
+	measure 仕入単価取得済売上高 = CALCULATE(SUM('Fact_売上実績'[金額]), 'Fact_売上実績'[仕入単価取得フラグ] = 1)
+		formatString: #,##0
+		lineageTag: f5035337-a010-4031-9cc3-035d9d2e8d90
+
+	measure 仕入原価 = CALCULATE(SUM('Fact_売上実績'[仕入原価推定]), 'Fact_売上実績'[仕入単価取得フラグ] = 1)
+		formatString: #,##0
+		lineageTag: ed855eff-e438-4aa4-ba42-a8152c5f4d4d
+
+	measure 利益 = [仕入単価取得済売上高] - [仕入原価]
+		formatString: #,##0
+		lineageTag: a9637b56-ffae-4918-9ed2-f18f71c6ec30
+
+	measure 利益率 = DIVIDE([利益], [仕入単価取得済売上高])
+		formatString: 0.0%
+		lineageTag: 6b349626-3b48-4000-bbb6-66cb7408afb2
+
+	measure 原価カバー率 = DIVIDE([仕入単価取得済売上高], [売上高])
+		formatString: 0.0%
+		lineageTag: 857c1e20-fca8-4383-aade-36ae133eeb66
+
+	column 得意先番号
+		dataType: string
+		lineageTag: 09726bea-bdbe-4295-8dc9-c60319d05689
+		summarizeBy: none
+		sourceColumn: 得意先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先キー
+		dataType: string
+		lineageTag: e35a868f-54d1-4865-b0f0-ceed16a29075
+		summarizeBy: none
+		sourceColumn: 得意先キー
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目コード
+		dataType: string
+		lineageTag: 8278c140-4424-479a-9078-fabbb41a8717
+		summarizeBy: none
+		sourceColumn: 品目コード
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年月
+		dataType: string
+		lineageTag: 391e50e0-5b37-462d-ba44-5785feccd04c
+		summarizeBy: none
+		sourceColumn: 年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 数量
+		dataType: double
+		formatString: #,##0
+		lineageTag: de9e7c09-4c27-480f-bca5-b27da7e02981
+		summarizeBy: sum
+		sourceColumn: 数量
+
+		annotation SummarizationSetBy = Automatic
+
+	column 金額
+		dataType: double
+		formatString: #,##0
+		lineageTag: 2b52cda0-7f42-4214-8c04-6c6d49e9bc0d
+		summarizeBy: sum
+		sourceColumn: 金額
+
+		annotation SummarizationSetBy = Automatic
+
+	column 有効仕入単価
+		dataType: double
+		formatString: #,##0.00
+		lineageTag: d91a99f3-eb8c-4d82-b818-264b49c0507b
+		summarizeBy: none
+		sourceColumn: 有効仕入単価
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入原価推定
+		dataType: double
+		formatString: #,##0
+		lineageTag: 8b628d57-f1c0-4b68-805c-b0a79b653c36
+		summarizeBy: sum
+		sourceColumn: 仕入原価推定
+
+		annotation SummarizationSetBy = Automatic
+
+	column 仕入単価取得フラグ
+		dataType: int64
+		formatString: 0
+		lineageTag: 868baa58-8221-4444-8615-ba7550ca0e3a
+		summarizeBy: none
+		sourceColumn: 仕入単価取得フラグ
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_売上実績 = m
+		mode: import
+		source =
+				let
+				    Raw = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( WITH items AS (SELECT DISTINCT TRIM(F_在庫品目番号) AS 品目コード FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01' AND TRIM(F_在庫品目番号) NOT IN ('99999','N-99999')), months AS (SELECT TO_CHAR(ADD_MONTHS(DATE '2017-01-01', LEVEL-1),'YYYY/MM') AS 年月 FROM DUAL CONNECT BY LEVEL <= 115), grid AS (SELECT i.品目コード, m.年月 FROM items i CROSS JOIN months m), purchase_monthly AS (SELECT TRIM(F_品目番号) AS 品目コード, F_勘定年月 AS 年月, SUM(F_仕入数) AS 仕入数量, SUM(F_金額) AS 仕入金額 FROM PRONES.TB_仕入実績情報 WHERE TRIM(F_品目番号) NOT IN ('99999','N-99999') GROUP BY TRIM(F_品目番号), F_勘定年月), cum AS (SELECT 品目コード, 年月, SUM(仕入数量) OVER (PARTITION BY 品目コード ORDER BY 年月) AS 累積数量, SUM(仕入金額) OVER (PARTITION BY 品目コード ORDER BY 年月) AS 累積金額 FROM purchase_monthly), carry AS (SELECT g.品目コード, g.年月, LAST_VALUE(CASE WHEN c.累積数量 IS NOT NULL AND c.累積数量<>0 THEN c.累積金額/c.累積数量 END IGNORE NULLS) OVER (PARTITION BY g.品目コード ORDER BY g.年月) AS 有効仕入単価 FROM grid g LEFT JOIN cum c ON c.品目コード = g.品目コード AND c.年月 = g.年月) SELECT TRIM(s.F_得意先番号) AS 得意先番号, MAX(TRIM(s.F_得意先番号) || (chr(35)) || TO_CHAR(ORA_HASH(TRIM(s.F_得意先番号)))) AS 得意先キー, TRIM(s.F_在庫品目番号) AS 品目コード, SUBSTR(s.F_売上日,1,7) AS 年月, SUM(s.F_数量) AS 数量, SUM(s.F_金額) AS 金額, MAX(ca.有効仕入単価) AS 有効仕入単価, ROUND(SUM(s.F_数量) * MAX(ca.有効仕入単価)) AS 仕入原価推定, CASE WHEN MAX(ca.有効仕入単価) IS NOT NULL THEN 1 ELSE 0 END AS 仕入単価取得フラグ FROM PRONES.TB_売上実績新情報 s LEFT JOIN carry ca ON ca.品目コード = TRIM(s.F_在庫品目番号) AND ca.年月 = SUBSTR(s.F_売上日,1,7) WHERE s.F_売上日 >= '2023/07/01' AND TRIM(s.F_在庫品目番号) NOT IN ('99999','N-99999') GROUP BY TRIM(s.F_得意先番号), TRIM(s.F_在庫品目番号), SUBSTR(s.F_売上日,1,7) ) q"),
+				    Source = Table.TransformColumnTypes(Raw, {{"仕入単価取得フラグ", Int64.Type}, {"数量", type number}, {"金額", type number}, {"有効仕入単価", type number}, {"仕入原価推定", type number}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,23 @@
+model Model
+	culture: ja-JP
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: ja-JP
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Dim_カレンダー","Dim_得意先","Dim_仕入先","Dim_品目","Fact_売上実績"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Dim_カレンダー
+ref table Dim_得意先
+ref table Dim_仕入先
+ref table Dim_品目
+ref table Fact_売上実績
+
+ref cultureInfo ja-JP
+
