@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "1cf207be92e244639eb1",
+  "displayName": "月次利益率(契約単価ベース)",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

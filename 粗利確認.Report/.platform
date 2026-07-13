@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "粗利確認"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e34fa027-1aab-49e7-ac86-4c4a37843a76"
+  }
+}

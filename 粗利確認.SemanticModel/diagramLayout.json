@@ -1,0 +1,100 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 176.98852446283439,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 571.73862965098692,
+            "y": 434.9784557495592
+          },
+          "nodeIndex": "Dim_カレンダー",
+          "nodeLineageTag": "4f723305-0f52-425e-b349-9d9a7e8b440a",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 921.8058696117389,
+            "y": -28.097590470074692
+          },
+          "nodeIndex": "Dim_仕入先",
+          "nodeLineageTag": "6db3f655-b851-4158-b6cc-f7a0877d661d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 287.35161763554146,
+            "y": 302.80552676021784
+          },
+          "nodeIndex": "Dim_得意先",
+          "nodeLineageTag": "5cac79c7-d67d-4d5a-81b4-47a3bcb05347",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 634.76865926010419,
+            "y": -11.886723603549854
+          },
+          "nodeIndex": "Dim_品目",
+          "nodeLineageTag": "0b5b7c6f-b2c9-430a-b01f-4232c3766c93",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 858.77039204636367,
+            "y": 240.87721075929778
+          },
+          "nodeIndex": "Fact_仕入実績",
+          "nodeLineageTag": "20ae447d-98e9-411a-a9bb-26c563e881bb",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -50
+          },
+          "nodeIndex": "Fact_売上実績",
+          "nodeLineageTag": "3fa4ad82-9ba5-4597-88eb-64b2ae08c26a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "すべてのテーブル",
+      "zoomValue": 79.553182037699983,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "すべてのテーブル",
+  "defaultDiagram": "すべてのテーブル"
+}

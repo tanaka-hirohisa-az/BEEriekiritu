@@ -1,0 +1,37 @@
+table Dim_品目
+	lineageTag: 0b5b7c6f-b2c9-430a-b01f-4232c3766c93
+
+	column 品目コード
+		dataType: string
+		lineageTag: d456bf75-59a6-4892-bc6b-abf246d41701
+		summarizeBy: none
+		sourceColumn: 品目コード
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目名称
+		dataType: string
+		lineageTag: 712bb5e2-0ea2-4743-9b6e-8be55380b1e6
+		summarizeBy: none
+		sourceColumn: 品目名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目区分
+		dataType: string
+		lineageTag: 31e233f8-3dd5-4e9c-b310-7c0c9b98829f
+		summarizeBy: none
+		sourceColumn: 品目区分
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_品目 = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( WITH sold_items AS (SELECT DISTINCT TRIM(F_在庫品目番号) AS 品目コード FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01' AND TRIM(F_在庫品目番号) NOT IN ('99999','N-99999')) SELECT si.品目コード, NVL(MAX(i.F_品目名称), si.品目コード) AS 品目名称, NVL(MAX(c.F_分類名), 'その他/コード外') AS 品目区分 FROM sold_items si LEFT JOIN PRONES.TB_納入品目情報 i ON TRIM(i.F_在庫用品目番号) = si.品目コード LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号) = TRIM(i.F_品目分類) GROUP BY si.品目コード ) q")
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
