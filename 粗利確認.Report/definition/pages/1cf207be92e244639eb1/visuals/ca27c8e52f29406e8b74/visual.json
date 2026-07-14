@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "ca27c8e52f29406e8b74",
   "position": {
-    "x": 1016,
+    "x": 856,
     "y": 0,
     "z": 1015,
     "height": 150,
-    "width": 246,
+    "width": 206,
     "tabOrder": 1015
   },
   "visual": {
@@ -23,11 +23,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "契約単価有無"
+                  "Property": "仕入契約単価有無"
                 }
               },
-              "queryRef": "Fact_売上実績.契約単価有無",
-              "nativeQueryRef": "契約単価有無",
+              "queryRef": "Fact_売上実績.仕入契約単価有無",
+              "nativeQueryRef": "仕入契約単価有無",
               "active": true
             }
           ]
@@ -67,7 +67,7 @@
                                   "Source": "f"
                                 }
                               },
-                              "Property": "契約単価有無"
+                              "Property": "仕入契約単価有無"
                             }
                           }
                         ],
@@ -97,7 +97,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'契約単価有無'"
+                  "Value": "'仕入契約単価有無'"
                 }
               }
             }

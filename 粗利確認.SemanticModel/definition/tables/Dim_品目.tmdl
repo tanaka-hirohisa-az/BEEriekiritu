@@ -29,7 +29,7 @@ table Dim_品目
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( WITH sold_items AS (SELECT DISTINCT TRIM(F_在庫品目番号) AS 品目コード FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01' AND TRIM(F_在庫品目番号) NOT IN ('99999','N-99999')) SELECT si.品目コード, NVL(MAX(i.F_品目名称), si.品目コード) AS 品目名称, NVL(MAX(c.F_分類名), 'その他/コード外') AS 品目区分 FROM sold_items si LEFT JOIN PRONES.TB_納入品目情報 i ON TRIM(i.F_在庫用品目番号) = si.品目コード LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号) = TRIM(i.F_品目分類) GROUP BY si.品目コード ) q")
+				    Source = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( WITH sold_items AS (SELECT DISTINCT TRIM(F_在庫品目番号) AS 品目コード FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01') SELECT si.品目コード, NVL(MAX(i.F_品目名称), si.品目コード) AS 品目名称, CASE WHEN si.品目コード = '99999' THEN 'コード未登録(99999)' ELSE NVL(MAX(c.F_分類名), 'その他/コード外') END AS 品目区分 FROM sold_items si LEFT JOIN PRONES.TB_納入品目情報 i ON TRIM(i.F_在庫用品目番号) = si.品目コード LEFT JOIN PRONES.TB_品目分類情報 c ON TRIM(c.F_番号) = TRIM(i.F_品目分類) GROUP BY si.品目コード ) q")
 				in
 				    Source
 

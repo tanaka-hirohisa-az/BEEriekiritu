@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "926bedbe421848669553",
+  "position": {
+    "x": 840,
+    "y": 170,
+    "z": 1014,
+    "height": 340,
+    "width": 410,
+    "tabOrder": 1014
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_カレンダー"
+                    }
+                  },
+                  "Property": "月初日"
+                }
+              },
+              "queryRef": "Dim_カレンダー.月初日",
+              "nativeQueryRef": "月初日",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_品目"
+                    }
+                  },
+                  "Property": "品目区分"
+                }
+              },
+              "queryRef": "Dim_品目.品目区分",
+              "nativeQueryRef": "品目区分",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "契約利益率"
+                }
+              },
+              "queryRef": "Fact_売上実績.契約利益率",
+              "nativeQueryRef": "契約利益率"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_カレンダー"
+                  }
+                },
+                "Property": "月初日"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'品目区分別 契約利益率トレンド'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "be3d7460dfa54d89bba3",
+  "position": {
+    "x": 320,
+    "y": 160,
+    "z": 1007,
+    "width": 305,
+    "height": 100,
+    "tabOrder": 1007
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算仕入原価"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算仕入原価",
+              "nativeQueryRef": "概算仕入原価"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'概算仕入原価'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

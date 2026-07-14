@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d77c819db5b04cb1984c",
+  "position": {
+    "x": 0,
+    "y": 809.78294573643416,
+    "z": 1012,
+    "height": 180.84799460734749,
+    "width": 1260.4138860802157,
+    "tabOrder": 1012
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_品目"
+                    }
+                  },
+                  "Property": "品目コード"
+                }
+              },
+              "queryRef": "Dim_品目.品目コード",
+              "nativeQueryRef": "品目コード"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_品目"
+                    }
+                  },
+                  "Property": "品目名称"
+                }
+              },
+              "queryRef": "Dim_品目.品目名称",
+              "nativeQueryRef": "品目名称"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "数量"
+                }
+              },
+              "queryRef": "Fact_売上実績.数量",
+              "nativeQueryRef": "数量"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_得意先"
+                    }
+                  },
+                  "Property": "得意先略称"
+                }
+              },
+              "queryRef": "Dim_得意先.得意先略称",
+              "nativeQueryRef": "得意先略称"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_カレンダー"
+                    }
+                  },
+                  "Property": "年月表示"
+                }
+              },
+              "queryRef": "Dim_カレンダー.年月表示",
+              "nativeQueryRef": "年月表示"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "売上高"
+                }
+              },
+              "queryRef": "Fact_売上実績.売上高",
+              "nativeQueryRef": "売上高"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算仕入原価"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算仕入原価",
+              "nativeQueryRef": "概算仕入原価"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益",
+              "nativeQueryRef": "概算利益"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益率"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益率",
+              "nativeQueryRef": "概算利益率"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算原価算出方式"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算原価算出方式",
+              "nativeQueryRef": "概算原価算出方式"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算単価"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算単価",
+              "nativeQueryRef": "概算単価"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_売上実績"
+                  }
+                },
+                "Property": "売上高"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'品目別 明細(概算原価)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

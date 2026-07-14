@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "26cc58add07546908a43",
+  "position": {
+    "x": 420,
+    "y": 170,
+    "z": 1013,
+    "height": 340,
+    "width": 410,
+    "tabOrder": 1013
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_カレンダー"
+                    }
+                  },
+                  "Property": "月初日"
+                }
+              },
+              "queryRef": "Dim_カレンダー.月初日",
+              "nativeQueryRef": "月初日",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_得意先"
+                    }
+                  },
+                  "Property": "得意先区分"
+                }
+              },
+              "queryRef": "Dim_得意先.得意先区分",
+              "nativeQueryRef": "得意先区分",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "売上高"
+                }
+              },
+              "queryRef": "Fact_売上実績.売上高",
+              "nativeQueryRef": "売上高"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_カレンダー"
+                  }
+                },
+                "Property": "月初日"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'得意先区分別 売上高トレンド'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

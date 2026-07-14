@@ -49,7 +49,7 @@ table Dim_カレンダー
 		mode: import
 		source =
 				let
-				    Raw = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'YYYY/MM') AS 年月, ADD_MONTHS(start_month, LEVEL-1) AS 月初日, TO_NUMBER(TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'YYYY')) AS 年, TO_NUMBER(TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'MM')) AS 月, TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'YY') || '年' || TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'MM') || '月' AS 年月表示 FROM (SELECT TRUNC(MIN(TO_DATE(F_売上日,'YYYY/MM/DD')),'MM') AS start_month, TRUNC(MAX(TO_DATE(F_売上日,'YYYY/MM/DD')),'MM') AS end_month FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01' AND TRIM(F_在庫品目番号) NOT IN ('99999','N-99999')) CONNECT BY LEVEL <= MONTHS_BETWEEN(end_month, start_month) + 1"),
+				    Raw = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'YYYY/MM') AS 年月, ADD_MONTHS(start_month, LEVEL-1) AS 月初日, TO_NUMBER(TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'YYYY')) AS 年, TO_NUMBER(TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'MM')) AS 月, TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'YY') || '年' || TO_CHAR(ADD_MONTHS(start_month, LEVEL-1),'MM') || '月' AS 年月表示 FROM (SELECT TRUNC(MIN(TO_DATE(F_売上日,'YYYY/MM/DD')),'MM') AS start_month, TRUNC(MAX(TO_DATE(F_売上日,'YYYY/MM/DD')),'MM') AS end_month FROM PRONES.TB_売上実績新情報 WHERE F_売上日 >= '2023/07/01') CONNECT BY LEVEL <= MONTHS_BETWEEN(end_month, start_month) + 1"),
 				    Source = Table.TransformColumnTypes(Raw, {{"年", Int64.Type}, {"月", Int64.Type}, {"月初日", type datetime}})
 				in
 				    Source

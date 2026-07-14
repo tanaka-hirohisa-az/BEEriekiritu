@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "20e7d87b82f74b75bee6",
+  "position": {
+    "x": 640,
+    "y": 160,
+    "z": 1008,
+    "width": 305,
+    "height": 100,
+    "tabOrder": 1008
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益率"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益率",
+              "nativeQueryRef": "概算利益率"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'概算利益率'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

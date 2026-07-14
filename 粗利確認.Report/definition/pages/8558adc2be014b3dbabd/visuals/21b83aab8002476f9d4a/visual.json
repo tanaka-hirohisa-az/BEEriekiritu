@@ -149,11 +149,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "契約単価有無"
+                  "Property": "仕入契約単価有無"
                 }
               },
-              "queryRef": "Fact_売上実績.契約単価有無",
-              "nativeQueryRef": "契約単価有無"
+              "queryRef": "Fact_売上実績.仕入契約単価有無",
+              "nativeQueryRef": "仕入契約単価有無"
             },
             {
               "field": {
@@ -163,11 +163,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "契約単価"
+                  "Property": "仕入契約単価"
                 }
               },
-              "queryRef": "Fact_売上実績.契約単価",
-              "nativeQueryRef": "契約単価"
+              "queryRef": "Fact_売上実績.仕入契約単価",
+              "nativeQueryRef": "仕入契約単価"
             },
             {
               "field": {
@@ -211,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'品目別 明細(契約単価)'"
+                  "Value": "'品目別 明細(仕入契約単価)'"
                 }
               }
             }

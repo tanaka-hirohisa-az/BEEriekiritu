@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "4b735bc467da49a7ad96",
+  "position": {
+    "x": 1070,
+    "y": 0,
+    "z": 1016,
+    "height": 150,
+    "width": 206,
+    "tabOrder": 1016
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_品目"
+                    }
+                  },
+                  "Property": "品目コード"
+                }
+              },
+              "queryRef": "Dim_品目.品目コード",
+              "nativeQueryRef": "品目コード",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "selfFilterEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'品目コード'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "syncGroup": {
+      "groupName": "sync_品目コード",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
+  }
+}

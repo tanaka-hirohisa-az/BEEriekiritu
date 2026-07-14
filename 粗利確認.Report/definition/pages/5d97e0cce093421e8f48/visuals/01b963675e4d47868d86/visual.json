@@ -1,0 +1,89 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "01b963675e4d47868d86",
+  "position": {
+    "x": 630,
+    "y": 540,
+    "z": 1014,
+    "height": 260,
+    "width": 630,
+    "tabOrder": 1014
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_品目"
+                    }
+                  },
+                  "Property": "品目コード"
+                }
+              },
+              "queryRef": "Dim_品目.品目コード",
+              "nativeQueryRef": "品目コード",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益率"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益率",
+              "nativeQueryRef": "概算利益率"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_売上実績"
+                  }
+                },
+                "Property": "概算利益率"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'品目別 概算利益率ワースト'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

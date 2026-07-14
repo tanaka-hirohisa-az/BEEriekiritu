@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "74044502866148468f61",
-  "displayName": "利益率トレンド",
+  "displayName": "利益率トレンド(実績ベース)",
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280

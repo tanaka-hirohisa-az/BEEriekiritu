@@ -23,11 +23,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "契約単価取得率"
+                  "Property": "仕入契約単価取得率"
                 }
               },
-              "queryRef": "Fact_売上実績.契約単価取得率",
-              "nativeQueryRef": "契約単価取得率"
+              "queryRef": "Fact_売上実績.仕入契約単価取得率",
+              "nativeQueryRef": "仕入契約単価取得率"
             }
           ]
         }
@@ -40,7 +40,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'契約単価取得率'"
+                  "Value": "'仕入契約単価取得率'"
                 }
               }
             }

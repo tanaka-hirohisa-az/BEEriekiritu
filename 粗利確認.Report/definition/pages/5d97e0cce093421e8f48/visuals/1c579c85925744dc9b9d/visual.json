@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "68e97695832440a19448",
+  "name": "1c579c85925744dc9b9d",
   "position": {
-    "x": 630,
-    "y": 170,
+    "x": 0,
+    "y": 540,
     "z": 1013,
-    "height": 340,
-    "width": 630,
+    "height": 260,
+    "width": 620,
     "tabOrder": 1013
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Dim_カレンダー"
+                      "Entity": "Dim_得意先"
                     }
                   },
-                  "Property": "月初日"
+                  "Property": "得意先略称"
                 }
               },
-              "queryRef": "Dim_カレンダー.月初日",
-              "nativeQueryRef": "月初日",
+              "queryRef": "Dim_得意先.得意先略称",
+              "nativeQueryRef": "得意先略称",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "売上高"
+                  "Property": "概算利益率"
                 }
               },
-              "queryRef": "Fact_売上実績.売上高",
-              "nativeQueryRef": "売上高"
+              "queryRef": "Fact_売上実績.概算利益率",
+              "nativeQueryRef": "概算利益率"
             }
           ]
         }
@@ -55,13 +55,13 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Dim_カレンダー"
+                    "Entity": "Fact_売上実績"
                   }
                 },
-                "Property": "月初日"
+                "Property": "概算利益率"
               }
             },
             "direction": "Ascending"
@@ -77,7 +77,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月次 売上高トレンド'"
+                  "Value": "'得意先別 概算利益率ワースト'"
                 }
               }
             }
