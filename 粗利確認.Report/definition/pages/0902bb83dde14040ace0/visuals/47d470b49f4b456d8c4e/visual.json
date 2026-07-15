@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "03ff6827ffb24c919556",
+  "name": "47d470b49f4b456d8c4e",
   "position": {
-    "x": 0,
-    "y": 540,
-    "z": 1017,
+    "x": 630,
+    "y": 750,
+    "z": 1016,
     "height": 200,
-    "width": 620,
-    "tabOrder": 1017
+    "width": 630,
+    "tabOrder": 1016
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Dim_得意先"
+                      "Entity": "Dim_品目"
                     }
                   },
-                  "Property": "得意先略称"
+                  "Property": "品目コード"
                 }
               },
-              "queryRef": "Dim_得意先.得意先略称",
-              "nativeQueryRef": "得意先略称",
+              "queryRef": "Dim_品目.品目コード",
+              "nativeQueryRef": "品目コード",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "契約利益率"
+                  "Property": "利益"
                 }
               },
-              "queryRef": "Fact_売上実績.契約利益率",
-              "nativeQueryRef": "契約利益率"
+              "queryRef": "Fact_売上実績.利益",
+              "nativeQueryRef": "利益"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Fact_売上実績"
                   }
                 },
-                "Property": "契約利益率"
+                "Property": "利益"
               }
             },
             "direction": "Ascending"
@@ -77,7 +77,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'得意先別 契約利益率ワースト'"
+                  "Value": "'品目別 利益額ワースト'"
                 }
               }
             }

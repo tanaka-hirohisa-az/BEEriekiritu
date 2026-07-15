@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "03ff6827ffb24c919556",
+  "name": "87f23ffd4aee435a840d",
   "position": {
     "x": 0,
-    "y": 540,
+    "y": 750,
     "z": 1017,
     "height": 200,
     "width": 620,
@@ -42,11 +42,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "契約利益率"
+                  "Property": "契約利益"
                 }
               },
-              "queryRef": "Fact_売上実績.契約利益率",
-              "nativeQueryRef": "契約利益率"
+              "queryRef": "Fact_売上実績.契約利益",
+              "nativeQueryRef": "契約利益"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Fact_売上実績"
                   }
                 },
-                "Property": "契約利益率"
+                "Property": "契約利益"
               }
             },
             "direction": "Ascending"
@@ -77,7 +77,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'得意先別 契約利益率ワースト'"
+                  "Value": "'得意先別 契約利益額ワースト'"
                 }
               }
             }
