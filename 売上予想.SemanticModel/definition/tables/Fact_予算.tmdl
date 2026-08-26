@@ -1,0 +1,41 @@
+table Fact_予算
+	lineageTag: cd0a6403-d132-592e-944e-514a70c97a24
+
+	column 年月
+		dataType: string
+		lineageTag: 82eb2869-2689-5b52-84c7-cb6297521beb
+		summarizeBy: none
+		sourceColumn: 年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先区分
+		dataType: string
+		lineageTag: ee601bdf-ce74-562f-b104-2cbceb629407
+		summarizeBy: none
+		sourceColumn: 得意先区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 予算金額
+		dataType: double
+		formatString: #,##0
+		lineageTag: fe81cb9a-cdff-5d4b-bc74-33f59ccb65f9
+		summarizeBy: sum
+		sourceColumn: 予算金額
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_予算 = m
+		mode: import
+		source =
+				let
+				    Book = Excel.Workbook(File.Contents(予算ファイルパス), null, true),
+				    予算表 = Book{[Item = "予算表", Kind = "Table"]}[Data],
+				    Typed = Table.TransformColumnTypes(予算表, {{"年月", type text}, {"得意先区分", type text}, {"予算金額", type number}}),
+				    Picked = Table.SelectColumns(Typed, {"年月", "得意先区分", "予算金額"}),
+				    Source = Table.SelectRows(Picked, each [年月] <> null and [年月] <> "" and [予算金額] <> null)
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

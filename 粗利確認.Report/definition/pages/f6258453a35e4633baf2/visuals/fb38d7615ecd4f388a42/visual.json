@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "fb38d7615ecd4f388a42",
   "position": {
-    "x": 1016,
+    "x": 1070,
     "y": 0,
     "z": 1005,
     "height": 150,
-    "width": 246,
+    "width": 206,
     "tabOrder": 1005
   },
   "visual": {
@@ -69,5 +69,23 @@
       "fieldChanges": true,
       "filterChanges": true
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fca56270c8cc30a9c6a1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_品目"
+              }
+            },
+            "Property": "品目コード"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

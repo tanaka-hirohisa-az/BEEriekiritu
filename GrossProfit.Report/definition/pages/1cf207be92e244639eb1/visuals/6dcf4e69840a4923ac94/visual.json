@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "6dcf4e69840a4923ac94",
+  "position": {
+    "x": 256,
+    "y": 160,
+    "z": 1013,
+    "width": 241,
+    "height": 100,
+    "tabOrder": 1013
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Contract_Cost"
+                }
+              },
+              "queryRef": "Fact_Sales.Contract_Cost",
+              "nativeQueryRef": "Contract_Cost"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Contract Cost'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

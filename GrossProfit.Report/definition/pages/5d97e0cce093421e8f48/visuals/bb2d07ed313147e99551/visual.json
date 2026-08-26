@@ -1,0 +1,89 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "bb2d07ed313147e99551",
+  "position": {
+    "x": 0,
+    "y": 270,
+    "z": 1009,
+    "height": 260,
+    "width": 620,
+    "tabOrder": 1009
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Customer_Category"
+                }
+              },
+              "queryRef": "Fact_Sales.Customer_Category",
+              "nativeQueryRef": "Customer_Category",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate",
+              "nativeQueryRef": "Approx_Profit_Rate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Sales"
+                  }
+                },
+                "Property": "Approx_Profit_Rate"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Approx Profit Rate by Customer Category'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

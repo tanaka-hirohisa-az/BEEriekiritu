@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "2228c4a7bc6a5c0f9dab",
+  "displayName": "売上予想（予算 / 内示 / 確定）",
+  "displayOption": "FitToPage",
+  "height": 990,
+  "width": 1280
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "a2b5572ead604717809b",
+  "position": {
+    "x": 1024,
+    "y": 160,
+    "z": 1006,
+    "width": 241,
+    "height": 100,
+    "tabOrder": 1006
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Actual_Price_Coverage"
+                }
+              },
+              "queryRef": "Fact_Sales.Actual_Price_Coverage",
+              "nativeQueryRef": "Actual_Price_Coverage"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Actual Price Coverage'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

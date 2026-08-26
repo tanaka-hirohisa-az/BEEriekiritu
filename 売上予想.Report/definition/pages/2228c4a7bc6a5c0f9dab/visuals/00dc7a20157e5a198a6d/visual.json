@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "00dc7a20157e5a198a6d",
+  "position": {
+    "x": 864,
+    "y": 534,
+    "z": 1007,
+    "height": 440,
+    "width": 400,
+    "tabOrder": 1007
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "計画区分"
+                }
+              },
+              "queryRef": "Fact_受注見込.計画区分",
+              "nativeQueryRef": "計画区分"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "内示金額"
+                }
+              },
+              "queryRef": "Fact_受注見込.内示金額",
+              "nativeQueryRef": "内示金額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "確定金額"
+                }
+              },
+              "queryRef": "Fact_受注見込.確定金額",
+              "nativeQueryRef": "確定金額"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'計画区分(F_区分)別 内訳'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

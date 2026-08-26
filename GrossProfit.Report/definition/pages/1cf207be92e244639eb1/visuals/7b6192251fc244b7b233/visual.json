@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "7b6192251fc244b7b233",
+  "position": {
+    "x": 512,
+    "y": 160,
+    "z": 1005,
+    "width": 241,
+    "height": 100,
+    "tabOrder": 1005
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Contract_Profit_Rate"
+                }
+              },
+              "queryRef": "Fact_Sales.Contract_Profit_Rate",
+              "nativeQueryRef": "Contract_Profit_Rate"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Contract Profit Rate (Priced Portion)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

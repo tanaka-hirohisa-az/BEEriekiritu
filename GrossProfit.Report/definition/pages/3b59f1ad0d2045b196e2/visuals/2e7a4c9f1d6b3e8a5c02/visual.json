@@ -1,0 +1,297 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "2e7a4c9f1d6b3e8a5c02",
+  "position": {
+    "x": 0,
+    "y": 520,
+    "z": 1020,
+    "height": 190,
+    "width": 1260,
+    "tabOrder": 1020
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Name"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Name",
+              "nativeQueryRef": "Customer_Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Category"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Category",
+              "nativeQueryRef": "Customer_Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Part"
+                    }
+                  },
+                  "Property": "Part_Code"
+                }
+              },
+              "queryRef": "Dim_Part.Part_Code",
+              "nativeQueryRef": "Part_Code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Part"
+                    }
+                  },
+                  "Property": "Part_Name"
+                }
+              },
+              "queryRef": "Dim_Part.Part_Name",
+              "nativeQueryRef": "Part_Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Calendar"
+                    }
+                  },
+                  "Property": "Year_Month_Label"
+                }
+              },
+              "queryRef": "Dim_Calendar.Year_Month_Label",
+              "nativeQueryRef": "Year_Month_Label"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Sales"
+                }
+              },
+              "queryRef": "Fact_Sales.Sales",
+              "nativeQueryRef": "Sales"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Sales_Unit_Price"
+                }
+              },
+              "queryRef": "Fact_Sales.Sales_Unit_Price",
+              "nativeQueryRef": "Sales_Unit_Price"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Qty"
+                }
+              },
+              "queryRef": "Fact_Sales.Qty",
+              "nativeQueryRef": "Qty"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Part"
+                  }
+                },
+                "Property": "Part_Code"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Calendar"
+                  }
+                },
+                "Property": "Year_Month_Label"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Part Detail (Sales by Month)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "21711d115c362d8bc0ba",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Part"
+              }
+            },
+            "Property": "Part_Code"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b9a3d0c3eb1c78003227",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Part"
+              }
+            },
+            "Property": "Part_Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4b909dd7410e595bba10",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Calendar"
+              }
+            },
+            "Property": "Year_Month_Label"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3e42d5edbeba3b7100b0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Sales"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7258c79c63b041e22c40",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Sales_Unit_Price"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "13b8e4e2ba8b464a547e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Qty"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "cc201dd26b09dc576707",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Customer"
+              }
+            },
+            "Property": "Customer_Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e3a1e4f3eee216d8531e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Customer"
+              }
+            },
+            "Property": "Customer_Category"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

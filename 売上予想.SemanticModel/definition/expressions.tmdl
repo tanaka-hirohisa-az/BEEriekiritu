@@ -1,0 +1,4 @@
+expression 予算ファイルパス = "C:\PowerBI\売上予想\売上予算.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b6850a64-6540-5de6-b116-c182b5cea600
+
+	annotation PBI_ResultType = Text

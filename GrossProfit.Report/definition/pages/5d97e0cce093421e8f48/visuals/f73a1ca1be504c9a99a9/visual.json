@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "f73a1ca1be504c9a99a9",
+  "position": {
+    "x": 630,
+    "y": 270,
+    "z": 1010,
+    "height": 260,
+    "width": 630,
+    "tabOrder": 1010
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Part"
+                    }
+                  },
+                  "Property": "Part_Category"
+                }
+              },
+              "queryRef": "Dim_Part.Part_Category",
+              "nativeQueryRef": "Part_Category",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate",
+              "nativeQueryRef": "Approx_Profit_Rate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Sales"
+                  }
+                },
+                "Property": "Approx_Profit_Rate"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Approx Profit Rate by Part Category'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

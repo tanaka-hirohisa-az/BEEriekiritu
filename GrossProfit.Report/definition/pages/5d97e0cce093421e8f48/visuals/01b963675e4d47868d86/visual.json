@@ -1,0 +1,89 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "01b963675e4d47868d86",
+  "position": {
+    "x": 630,
+    "y": 540,
+    "z": 1014,
+    "height": 200,
+    "width": 630,
+    "tabOrder": 1014
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Part"
+                    }
+                  },
+                  "Property": "Part_Code"
+                }
+              },
+              "queryRef": "Dim_Part.Part_Code",
+              "nativeQueryRef": "Part_Code",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate",
+              "nativeQueryRef": "Approx_Profit_Rate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Sales"
+                  }
+                },
+                "Property": "Approx_Profit_Rate"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Part Approx Profit Rate - Worst'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

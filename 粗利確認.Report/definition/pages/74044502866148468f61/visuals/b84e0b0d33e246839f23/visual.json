@@ -39,13 +39,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Dim_得意先"
+                      "Entity": "Fact_売上実績"
                     }
                   },
                   "Property": "得意先区分"
                 }
               },
-              "queryRef": "Dim_得意先.得意先区分",
+              "queryRef": "Fact_売上実績.得意先区分",
               "nativeQueryRef": "得意先区分",
               "active": true
             }

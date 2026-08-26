@@ -1,0 +1,165 @@
+table Fact_受注見込
+	lineageTag: 28c24dea-c28c-5a89-8c4c-990df4fadce9
+
+	measure 確定金額 = CALCULATE(SUM('Fact_受注見込'[金額]), 'Fact_受注見込'[区分種別] = "確定")
+		formatString: #,##0
+		lineageTag: d147cfbb-2cfe-5ffe-9cd1-d7958d9ac412
+
+	measure 内示金額 = CALCULATE(SUM('Fact_受注見込'[金額]), 'Fact_受注見込'[区分種別] = "内示")
+		formatString: #,##0
+		lineageTag: 2b29fadd-8dbd-5eb8-8947-649c903e450f
+
+	measure 内示＋確定 = [確定金額] + [内示金額]
+		formatString: #,##0
+		lineageTag: 52b92ab7-c39e-5b5e-a862-b7efe00b7514
+
+	measure 予算額 = SUM('Fact_予算'[予算金額])
+		formatString: #,##0
+		lineageTag: 93c3d141-d27d-55f7-9c09-6f029fe7fb68
+
+	measure 達成率 = DIVIDE([内示＋確定], [予算額])
+		formatString: 0.0%
+		lineageTag: 9d5e9403-9213-5662-8235-9ac388ba471b
+
+	measure 予算差額 = [内示＋確定] - [予算額]
+		formatString: #,##0
+		lineageTag: 780f1d8b-66b0-578e-9715-8576c8481856
+
+	measure 確定数量 = CALCULATE(SUM('Fact_受注見込'[数量]), 'Fact_受注見込'[区分種別] = "確定")
+		formatString: #,##0
+		lineageTag: c329c5e6-f42f-5c75-9942-8b0f4a7e7648
+
+	measure 内示数量 = CALCULATE(SUM('Fact_受注見込'[数量]), 'Fact_受注見込'[区分種別] = "内示")
+		formatString: #,##0
+		lineageTag: ecca3193-d54d-5c15-86b5-42460bc2f690
+
+	measure データ基準日 = FORMAT(MAX('Fact_受注見込'[基準日]), "yyyy/mm/dd")
+		lineageTag: 2dea6055-b911-5bf8-aaf4-232e6a884c92
+
+	column 年月
+		dataType: string
+		lineageTag: 25a7181a-2d2a-55f5-a8b9-d5772b8fc2c6
+		summarizeBy: none
+		sourceColumn: 年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 区分種別
+		dataType: string
+		lineageTag: 461255e8-265b-58b4-ac16-ecb42c982e69
+		summarizeBy: none
+		sourceColumn: 区分種別
+
+		annotation SummarizationSetBy = Automatic
+
+	column 計画区分
+		dataType: string
+		lineageTag: 4c1911b3-a0c6-53cd-81e3-cd9612589290
+		summarizeBy: none
+		sourceColumn: 計画区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先番号
+		dataType: string
+		lineageTag: 3b22c0eb-d342-5bbf-add7-ad160e6fe8fe
+		summarizeBy: none
+		sourceColumn: 得意先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先キー
+		dataType: string
+		lineageTag: b5f5fbca-78bd-50fc-a5fa-1b141e23fce0
+		summarizeBy: none
+		sourceColumn: 得意先キー
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目コード
+		dataType: string
+		lineageTag: 96f444ba-98ac-5fef-8c14-a072a49fd2ef
+		summarizeBy: none
+		sourceColumn: 品目コード
+
+		annotation SummarizationSetBy = Automatic
+
+	column 在庫品目コード
+		dataType: string
+		lineageTag: 1b514575-1407-5498-b92c-d1749ed86c2c
+		summarizeBy: none
+		sourceColumn: 在庫品目コード
+
+		annotation SummarizationSetBy = Automatic
+
+	column 数量
+		dataType: double
+		formatString: #,##0
+		lineageTag: 69389704-9ef7-578c-a20a-df06ebb2043d
+		summarizeBy: sum
+		sourceColumn: 数量
+
+		annotation SummarizationSetBy = Automatic
+
+	column 単価
+		dataType: double
+		formatString: #,##0.00
+		lineageTag: 24a6542e-0840-5520-b88a-56b390b12d68
+		summarizeBy: none
+		sourceColumn: 単価
+
+		annotation SummarizationSetBy = Automatic
+
+	column 金額
+		dataType: double
+		formatString: #,##0
+		lineageTag: 9679ef03-c474-53db-b639-99d2d283c6a3
+		summarizeBy: sum
+		sourceColumn: 金額
+
+		annotation SummarizationSetBy = Automatic
+
+	column 基準日
+		dataType: dateTime
+		formatString: yyyy/MM/dd
+		lineageTag: 33ca9ff2-a7f7-5a92-9d30-85c7c9314d28
+		summarizeBy: none
+		sourceColumn: 基準日
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 得意先区分 = RELATED('Dim_得意先'[得意先区分])
+		dataType: string
+		lineageTag: c5440603-dfda-5085-a1b5-24c1b6271ac6
+		summarizeBy: none
+		sortByColumn: 得意先区分順序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先区分順序 = RELATED('Dim_得意先'[得意先区分順序])
+		dataType: int64
+		isHidden
+		lineageTag: a821c137-38ca-5efb-a437-b847d44bdb6b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 集計対象 = IF('Fact_受注見込'[区分種別] = "内示" && 'Fact_受注見込'[得意先番号] IN {"1724601"}, "除外(内示・住友)", "対象")
+		dataType: string
+		lineageTag: 6960a1ac-a367-5293-ae6e-aa7002400d53
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_受注見込 = m
+		mode: import
+		source =
+				let
+				    Raw = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( WITH 得意先単価最新日 AS ( SELECT F_納入品目番号, F_得意先番号, MAX(F_開始日) AS F_開始日 FROM PRONES.TB_納入品目得意先単価情報 WHERE F_納入品目番号 >= '0' GROUP BY F_納入品目番号, F_得意先番号 ), 得意先最新単価 AS ( SELECT t.F_納入品目番号, t.F_得意先番号, t.F_契約単価 FROM PRONES.TB_納入品目得意先単価情報 t JOIN 得意先単価最新日 q ON t.F_納入品目番号 = q.F_納入品目番号 AND t.F_得意先番号 = q.F_得意先番号 AND t.F_開始日 = q.F_開始日 WHERE t.F_納入品目番号 >= '0' ), 内示最新作成日 AS ( SELECT F_得意先, MAX(F_作成日) AS F_作成日 FROM PRONES.TB_統合計画日別情報 WHERE F_納入品目番号 > '0' GROUP BY F_得意先 ), rng AS (SELECT TO_CHAR(ADD_MONTHS(SYSDATE,-1),'YYYY/MM') AS 開始年月, TO_CHAR(ADD_MONTHS(SYSDATE,13),'YYYY/MM') AS 終了年月 FROM DUAL) SELECT SUBSTR(a.F_納入指定日,1,7) AS 年月, '確定' AS 区分種別, TRIM(a.F_区分) AS 計画区分, UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) AS 得意先番号, UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) || (chr(35)) || TO_CHAR(ORA_HASH(UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))))) AS 得意先キー, UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) AS 品目コード, UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_在庫品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) AS 在庫品目コード, SUM(a.F_注文数) AS 数量, CASE WHEN SUM(a.F_注文数) <> 0 THEN SUM(p.F_契約単価 * a.F_注文数) / SUM(a.F_注文数) END AS 単価, SUM(p.F_契約単価 * a.F_注文数) AS 金額, TRUNC(SYSDATE) AS 基準日 FROM PRONES.TB_統合注文情報 a CROSS JOIN rng JOIN PRONES.TB_得意先情報 c1 ON a.F_得意先 = c1.F_得意先番号 JOIN PRONES.TB_納入品目情報 i ON a.F_在庫品目番号 = i.F_納入品目番号 LEFT JOIN 得意先最新単価 p ON a.F_得意先 = p.F_得意先番号 AND a.F_納入品目番号 = p.F_納入品目番号 JOIN PRONES.TB_仕入先情報 s ON a.F_指示先 = s.F_仕入先番号 JOIN PRONES.TB_得意先情報 c2 ON a.F_納入先 = c2.F_得意先番号 WHERE SUBSTR(a.F_納入指定日,1,7) BETWEEN rng.開始年月 AND rng.終了年月 GROUP BY SUBSTR(a.F_納入指定日,1,7), TRIM(a.F_区分), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(a.F_在庫品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) UNION ALL SELECT SUBSTR(d.F_納期,1,7), '内示', TRIM(d.F_区分), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) || (chr(35)) || TO_CHAR(ORA_HASH(UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_在庫品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), SUM(d.F_数量 + d.F_調整数), CASE WHEN SUM(d.F_数量 + d.F_調整数) <> 0 THEN SUM(p.F_契約単価 * (d.F_数量 + d.F_調整数)) / SUM(d.F_数量 + d.F_調整数) END, SUM(p.F_契約単価 * (d.F_数量 + d.F_調整数)), TRUNC(SYSDATE) FROM PRONES.TB_統合計画日別情報 d CROSS JOIN rng JOIN 内示最新作成日 l ON d.F_得意先 = l.F_得意先 AND d.F_作成日 = l.F_作成日 JOIN 得意先最新単価 p ON d.F_在庫品目番号 = p.F_納入品目番号 AND d.F_得意先 = p.F_得意先番号 JOIN PRONES.TB_得意先情報 c ON d.F_得意先 = c.F_得意先番号 JOIN PRONES.TB_納入品目情報 i ON d.F_納入品目番号 = i.F_納入品目番号 JOIN PRONES.TB_仕入先情報 s ON d.F_指示先 = s.F_仕入先番号 WHERE SUBSTR(d.F_納期,1,7) BETWEEN rng.開始年月 AND rng.終了年月 GROUP BY SUBSTR(d.F_納期,1,7), TRIM(d.F_区分), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_得意先, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))), UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(d.F_在庫品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) ) q"),
+				    Source = Table.TransformColumnTypes(Raw, {{"年月", type text}, {"区分種別", type text}, {"計画区分", type text}, {"得意先番号", type text}, {"得意先キー", type text}, {"品目コード", type text}, {"在庫品目コード", type text}, {"数量", type number}, {"単価", type number}, {"金額", type number}, {"基準日", type date}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

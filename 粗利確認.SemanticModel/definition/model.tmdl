@@ -9,7 +9,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["Dim_カレンダー","Dim_得意先","Dim_仕入先","Dim_品目","Fact_売上実績","Fact_仕入実績"]
+annotation PBI_QueryOrder = ["Dim_カレンダー","Dim_得意先","Dim_仕入先","Dim_品目","Fact_売上実績","Fact_仕入実績","Dim_得意先区分マッピング"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -19,6 +19,7 @@ ref table Dim_仕入先
 ref table Dim_品目
 ref table Fact_売上実績
 ref table Fact_仕入実績
+ref table Dim_得意先区分マッピング
 
 ref cultureInfo ja-JP
 

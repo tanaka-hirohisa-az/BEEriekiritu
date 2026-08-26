@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "939933d6256d5f468a00",
+  "position": {
+    "x": 508,
+    "y": 8,
+    "z": 1002,
+    "height": 180,
+    "width": 236,
+    "tabOrder": 1002
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "計画区分"
+                }
+              },
+              "queryRef": "Fact_受注見込.計画区分",
+              "nativeQueryRef": "計画区分",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'計画区分 (F_区分)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "syncGroup": {
+      "groupName": "sync_計画区分",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "da625d43bcae991a6210",
+  "position": {
+    "x": 0,
+    "y": 150,
+    "z": 1001,
+    "height": 205.55555555555554,
+    "width": 711.11111111111109,
+    "tabOrder": 1001
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Customer_Category"
+                }
+              },
+              "queryRef": "Fact_Sales.Customer_Category",
+              "nativeQueryRef": "Customer_Category"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Sales"
+                }
+              },
+              "queryRef": "Fact_Sales.Sales",
+              "nativeQueryRef": "Sales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit",
+              "nativeQueryRef": "Approx_Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate",
+              "nativeQueryRef": "Approx_Profit_Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate_PY_Same_Month"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate_PY_Same_Month",
+              "nativeQueryRef": "Approx_Profit_Rate_PY_Same_Month"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Sales"
+                  }
+                },
+                "Property": "Customer_Category"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Monthly Actual by Customer Category'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

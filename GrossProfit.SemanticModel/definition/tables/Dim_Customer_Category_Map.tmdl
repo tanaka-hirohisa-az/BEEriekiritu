@@ -1,0 +1,161 @@
+table Dim_Customer_Category_Map
+	lineageTag: 0c62791c-c22c-40ff-9df4-22bb0e6e2711
+
+	column Customer_No
+		dataType: string
+		lineageTag: fc7f4e48-b615-44e4-86c4-7455f2618a6b
+		summarizeBy: none
+		sourceColumn: Customer_No
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Category
+		dataType: string
+		lineageTag: c72cb34c-a70e-4fcf-bad2-3d20970fb52e
+		summarizeBy: none
+		sourceColumn: Customer_Category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Customer_Category_Map = m
+		mode: import
+		source =
+				let
+				    Source = #table(
+				        {"Customer_No", "Customer_Category"},
+				        {
+				            {"1110129", "Other"},
+				            {"1110131", "Other"},
+				            {"1134373", "Other"},
+				            {"1151531", "Other"},
+				            {"1211993", "Other"},
+				            {"1221322", "Komatsu Group"},
+				            {"1214131", "Other"},
+				            {"1225314", "Komatsu Group"},
+				            {"1227391", "Other"},
+				            {"1227581", "Other"},
+				            {"1243542", "Other"},
+				            {"1251332", "Other"},
+				            {"1251364", "Other"},
+				            {"1251374", "Kobelco Group"},
+				            {"1251375", "Caterpillar Group"},
+				            {"1251375O", "Caterpillar Group"},
+				            {"2011726", "Caterpillar Group"},
+				            {"1257133", "Komatsu Group"},
+				            {"1257140", "Komatsu Group"},
+				            {"1257143", "Komatsu Group"},
+				            {"1257147", "Komatsu Group"},
+				            {"1257150", "Komatsu Group"},
+				            {"1257152", "Komatsu Group"},
+				            {"1257153", "Komatsu Group"},
+				            {"1285135", "Other"},
+				            {"1303140", "Other"},
+				            {"1311311", "Other"},
+				            {"1313961", "Other"},
+				            {"1319983", "Komatsu Group"},
+				            {"1322111", "Other"},
+				            {"1327300", "Other"},
+				            {"1329925", "Kobelco Group"},
+				            {"1349925", "Other"},
+				            {"1410312", "Other"},
+				            {"1411121", "Komatsu Group"},
+				            {"1411222", "Komatsu Group"},
+				            {"1411319", "Other"},
+				            {"1411320", "Other"},
+				            {"1411323", "Other"},
+				            {"1451311", "Other"},
+				            {"1451321", "Other"},
+				            {"1451400", "Komatsu Group"},
+				            {"1464719", "Other"},
+				            {"1619935", "Komatsu Group"},
+				            {"1624100", "Hitachi Group"},
+				            {"1624101", "Other"},
+				            {"1624102", "Other"},
+				            {"1624110", "Hitachi Group"},
+				            {"1624113", "Other"},
+				            {"1624121", "Other"},
+				            {"1644144", "Other"},
+				            {"1694229", "Other"},
+				            {"1714814", "Other"},
+				            {"1724366", "Other"},
+				            {"1724601", "Sumitomo Group"},
+				            {"1758267", "Other"},
+				            {"1794125", "Other"},
+				            {"1817145", "Other"},
+				            {"1834152", "Kobelco Group"},
+				            {"2196316", "Other"},
+				            {"6931966", "Other"},
+				            {"8000300", "Other"},
+				            {"8000310", "Komatsu Group"},
+				            {"12513651", "Other"},
+				            {"12513652", "Kobelco Group"},
+				            {"12571432", "Komatsu Group"},
+				            {"12811139", "Other"},
+				            {"13556677", "Other"},
+				            {"13556679", "Other"},
+				            {"15612587", "Other"},
+				            {"16241101", "Hitachi Group"},
+				            {"16241102", "Hitachi Group"},
+				            {"16241103", "Hitachi Group"},
+				            {"16241105", "Hitachi Group"},
+				            {"18341524", "Kobelco Group"},
+				            {"18341525", "Kobelco Group"},
+				            {"18341526", "Kobelco Group"},
+				            {"1233264K", "Komatsu Group"},
+				            {"1257149I", "Komatsu Group"},
+				            {"1281113T", "Other"},
+				            {"1319983H", "Komatsu Group"},
+				            {"1457514A", "Other"},
+				            {"1624100A", "Hitachi Group"},
+				            {"1624113C", "Other"},
+				            {"1724601K", "Other"},
+				            {"1817145H", "Other"},
+				            {"1233375", "Other"},
+				            {"1451323", "Other"},
+				            {"1516144", "Other"},
+				            {"1151552", "Inactive"},
+				            {"1227582", "Inactive"},
+				            {"12513654", "Inactive"},
+				            {"12513656", "Inactive"},
+				            {"1328595", "Inactive"},
+				            {"1341299", "Inactive"},
+				            {"1351325", "Inactive"},
+				            {"14412111", "Inactive"},
+				            {"1523700", "Inactive"},
+				            {"1724600", "Inactive"},
+				            {"1724523", "Inactive"},
+				            {"1754321", "Inactive"},
+				            {"180108S", "Inactive"},
+				            {"1810055S", "Inactive"},
+				            {"180105S", "Legacy Service"},
+				            {"180111S", "Legacy Service"},
+				            {"180112S", "Legacy Service"},
+				            {"180113S", "Legacy Service"},
+				            {"180460S", "Legacy Service"},
+				            {"180830S", "Legacy Service"},
+				            {"180117S", "Legacy Service"},
+				            {"11233253", "Other"},
+				            {"1840010S", "Legacy Service"},
+				            {"1840011S", "Legacy Service"},
+				            {"1800050S", "Legacy Service"},
+				            {"1840256S", "Legacy Service"},
+				            {"2000001", "Intercompany"},
+				            {"2000002", "Intercompany"},
+				            {"2000004", "Intercompany"},
+				            {"2000005", "Intercompany"},
+				            {"2000006", "Intercompany"},
+				            {"2000007", "Intercompany"},
+				            {"2312541", "Intercompany"},
+				            {"2999999", "Intercompany"},
+				            {"2456532", "Intercompany"},
+				            {"1693340", "Other"},
+				            {"2196312", "Hitachi Group"},
+				            {"12571489I", "Komatsu Group"},
+				            {"1239461", "Other"}
+				        }
+				    )
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

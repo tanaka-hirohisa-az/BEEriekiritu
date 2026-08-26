@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "売上予想"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "18a87580-55fd-5852-8817-cf74e4663c06"
+  }
+}

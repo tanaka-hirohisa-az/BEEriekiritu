@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Gross Profit Review"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c9e52f71-8a04-4b37-a1d6-2f7b93e45d80"
+  }
+}

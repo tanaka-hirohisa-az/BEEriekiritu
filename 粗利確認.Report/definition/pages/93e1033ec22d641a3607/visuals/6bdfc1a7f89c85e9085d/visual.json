@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "6bdfc1a7f89c85e9085d",
+  "position": {
+    "x": 0,
+    "y": 355.55555555555554,
+    "z": 1002,
+    "height": 304.44444444444446,
+    "width": 640,
+    "tabOrder": 1002
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "得意先区分"
+                }
+              },
+              "queryRef": "Fact_売上実績.得意先区分",
+              "nativeQueryRef": "得意先区分"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "売上高_年計"
+                }
+              },
+              "queryRef": "Fact_売上実績.売上高_年計",
+              "nativeQueryRef": "売上高_年計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益_年計"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益_年計",
+              "nativeQueryRef": "概算利益_年計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益率_年計"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益率_年計",
+              "nativeQueryRef": "概算利益率_年計"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "概算利益率_前年通期"
+                }
+              },
+              "queryRef": "Fact_売上実績.概算利益率_前年通期",
+              "nativeQueryRef": "概算利益率_前年通期"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_売上実績"
+                  }
+                },
+                "Property": "得意先区分"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'得意先区分別 年計実績'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

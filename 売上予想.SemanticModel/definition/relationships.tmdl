@@ -1,0 +1,23 @@
+relationship 0c6708b5-bef2-5d27-8b46-185d6281c18d
+	fromColumn: Fact_受注見込.年月
+	toColumn: Dim_カレンダー.年月
+
+relationship 0fc4b1b4-4f48-5273-a190-1b113ad8f409
+	fromColumn: Fact_受注見込.得意先キー
+	toColumn: Dim_得意先.得意先キー
+
+relationship 73993652-85dd-5b67-9a66-af320c6f9be7
+	fromColumn: Fact_受注見込.品目コード
+	toColumn: Dim_品目.品目コード
+
+relationship a1b383d3-1594-5271-9561-895753975af0
+	fromColumn: Dim_得意先.得意先区分
+	toColumn: Dim_得意先区分.得意先区分
+
+relationship dbbecdc5-1fe9-5398-bb12-015956870a39
+	fromColumn: Fact_予算.年月
+	toColumn: Dim_カレンダー.年月
+
+relationship 4429dbe3-a819-5649-8e70-e6ad684d9004
+	fromColumn: Fact_予算.得意先区分
+	toColumn: Dim_得意先区分.得意先区分

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Gross Profit Review"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b7c41d58-3e92-4a16-9f03-1d5e8a24c7b1"
+  }
+}

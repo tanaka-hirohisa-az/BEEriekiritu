@@ -62,6 +62,20 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "売単価"
+                }
+              },
+              "queryRef": "Fact_売上実績.売単価",
+              "nativeQueryRef": "売単価"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
                       "Entity": "Dim_得意先"
                     }
                   },
@@ -76,14 +90,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Dim_カレンダー"
+                      "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "年月表示"
+                  "Property": "売上日"
                 }
               },
-              "queryRef": "Dim_カレンダー.年月表示",
-              "nativeQueryRef": "年月表示"
+              "queryRef": "Fact_売上実績.売上日",
+              "nativeQueryRef": "売上日"
             },
             {
               "field": {

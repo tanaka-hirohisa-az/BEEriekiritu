@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 131.74849556807021,
+        "x": 58.325764397318636,
         "y": 0
       },
       "nodes": [
@@ -82,6 +82,16 @@
           "nodeLineageTag": "3fa4ad82-9ba5-4597-88eb-64b2ae08c26a",
           "size": {
             "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Dim_得意先区分マッピング",
+          "nodeLineageTag": "0c62791c-c22c-40ff-9df4-22bb0e6e2711",
+          "size": {
+            "height": 128,
             "width": 234
           },
           "zIndex": 0

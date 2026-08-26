@@ -1,0 +1,26 @@
+model Model
+	culture: ja-JP
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: ja-JP
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["予算ファイルパス","Dim_カレンダー","Dim_得意先区分マッピング","Dim_得意先","Dim_得意先区分","Dim_品目","Fact_受注見込","Fact_予算"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Dim_カレンダー
+ref table Dim_得意先区分マッピング
+ref table Dim_得意先
+ref table Dim_得意先区分
+ref table Dim_品目
+ref table Fact_受注見込
+ref table Fact_予算
+
+ref expression 予算ファイルパス
+
+ref cultureInfo ja-JP

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "1993f7f6aaeb5dbe901d",
+  "position": {
+    "x": 12,
+    "y": 196,
+    "z": 1004,
+    "height": 330,
+    "width": 640,
+    "tabOrder": 1004
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_カレンダー"
+                    }
+                  },
+                  "Property": "年月表示"
+                }
+              },
+              "queryRef": "Dim_カレンダー.年月表示",
+              "nativeQueryRef": "年月表示"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "予算額"
+                }
+              },
+              "queryRef": "Fact_受注見込.予算額",
+              "nativeQueryRef": "予算額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "内示金額"
+                }
+              },
+              "queryRef": "Fact_受注見込.内示金額",
+              "nativeQueryRef": "内示金額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "確定金額"
+                }
+              },
+              "queryRef": "Fact_受注見込.確定金額",
+              "nativeQueryRef": "確定金額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "内示＋確定"
+                }
+              },
+              "queryRef": "Fact_受注見込.内示＋確定",
+              "nativeQueryRef": "内示＋確定"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "達成率"
+                }
+              },
+              "queryRef": "Fact_受注見込.達成率",
+              "nativeQueryRef": "達成率"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'月次サマリー（予算 / 内示 / 確定 / 達成率）'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

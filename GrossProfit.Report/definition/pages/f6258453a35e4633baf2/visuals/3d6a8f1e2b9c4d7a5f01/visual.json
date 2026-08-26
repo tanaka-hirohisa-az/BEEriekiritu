@@ -1,0 +1,324 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "3d6a8f1e2b9c4d7a5f01",
+  "position": {
+    "x": 0,
+    "y": 520,
+    "z": 1020,
+    "height": 400,
+    "width": 1260,
+    "tabOrder": 1020
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Name"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Name",
+              "nativeQueryRef": "Customer_Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Category"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Category",
+              "nativeQueryRef": "Customer_Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Part"
+                    }
+                  },
+                  "Property": "Part_Code"
+                }
+              },
+              "queryRef": "Dim_Part.Part_Code",
+              "nativeQueryRef": "Part_Code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Part"
+                    }
+                  },
+                  "Property": "Part_Name"
+                }
+              },
+              "queryRef": "Dim_Part.Part_Name",
+              "nativeQueryRef": "Part_Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Calendar"
+                    }
+                  },
+                  "Property": "Year_Month_Label"
+                }
+              },
+              "queryRef": "Dim_Calendar.Year_Month_Label",
+              "nativeQueryRef": "Year_Month_Label"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate",
+              "nativeQueryRef": "Approx_Profit_Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit",
+              "nativeQueryRef": "Approx_Profit"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Sales_Unit_Price"
+                }
+              },
+              "queryRef": "Fact_Sales.Sales_Unit_Price",
+              "nativeQueryRef": "Sales_Unit_Price"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Purchase_Unit_Price"
+                }
+              },
+              "queryRef": "Fact_Sales.Purchase_Unit_Price",
+              "nativeQueryRef": "Purchase_Unit_Price"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Part"
+                  }
+                },
+                "Property": "Part_Code"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Calendar"
+                  }
+                },
+                "Property": "Year_Month_Label"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Part Approx Profit Rate by Month (filter with Part Code slicer)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "85b9dc4e5a9a6c597748",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Part"
+              }
+            },
+            "Property": "Part_Code"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "22d9c7df85ab1c63e548",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Part"
+              }
+            },
+            "Property": "Part_Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "eda4fb2e06c0954ee390",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Calendar"
+              }
+            },
+            "Property": "Year_Month_Label"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9281637f4eb0d429cd4d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Approx_Profit_Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9a48fc1cd1938ae0e924",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Sales_Unit_Price"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f98cc5565b0c94e0a3c2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Purchase_Unit_Price"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "15b629bbb81009003138",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Approx_Profit"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3427c16ca048300a67d7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Customer"
+              }
+            },
+            "Property": "Customer_Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3d2963ffeb539ec47d81",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Customer"
+              }
+            },
+            "Property": "Customer_Category"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

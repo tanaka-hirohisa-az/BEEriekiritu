@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "ecc4695b8d9e4cc49071",
+  "position": {
+    "x": 256,
+    "y": 160,
+    "z": 1013,
+    "width": 241,
+    "height": 100,
+    "tabOrder": 1013
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Actual_Cost"
+                }
+              },
+              "queryRef": "Fact_Sales.Actual_Cost",
+              "nativeQueryRef": "Actual_Cost"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Actual Cost'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

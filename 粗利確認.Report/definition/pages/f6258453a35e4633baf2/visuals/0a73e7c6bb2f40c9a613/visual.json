@@ -62,6 +62,20 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
+                      "Entity": "Fact_売上実績"
+                    }
+                  },
+                  "Property": "売単価"
+                }
+              },
+              "queryRef": "Fact_売上実績.売単価",
+              "nativeQueryRef": "売単価"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
                       "Entity": "Dim_得意先"
                     }
                   },
@@ -163,11 +177,11 @@
                       "Entity": "Fact_売上実績"
                     }
                   },
-                  "Property": "概算単価"
+                  "Property": "取得仕入契約単価"
                 }
               },
-              "queryRef": "Fact_売上実績.概算単価",
-              "nativeQueryRef": "概算単価"
+              "queryRef": "Fact_売上実績.取得仕入契約単価",
+              "nativeQueryRef": "取得仕入契約単価"
             }
           ]
         }
@@ -197,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'品目別 明細(概算原価)'"
+                  "Value": "'品目別 明細(取得原価)'"
                 }
               }
             }

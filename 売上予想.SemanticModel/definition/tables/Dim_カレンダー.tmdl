@@ -1,0 +1,57 @@
+table Dim_カレンダー
+	lineageTag: 7edb6909-2379-589a-a2f8-a8344cf236c9
+
+	column 年月
+		dataType: string
+		lineageTag: 63eb40d1-32b0-505a-8df0-b4027c911c4d
+		summarizeBy: none
+		sourceColumn: 年月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月初日
+		dataType: dateTime
+		formatString: yyyy/MM/dd
+		lineageTag: 87fe8633-6094-52a1-acb8-dc237472be7e
+		summarizeBy: none
+		sourceColumn: 月初日
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年
+		dataType: int64
+		formatString: 0
+		lineageTag: 22a54b2f-c1d5-5cfb-810e-eb246043a5cb
+		summarizeBy: none
+		sourceColumn: 年
+
+		annotation SummarizationSetBy = Automatic
+
+	column 月
+		dataType: int64
+		formatString: 0
+		lineageTag: b6320f0e-fb24-54e2-8eb1-b821634bddef
+		summarizeBy: none
+		sourceColumn: 月
+
+		annotation SummarizationSetBy = Automatic
+
+	column 年月表示
+		dataType: string
+		lineageTag: b691a783-1a8d-53a4-80e5-52be4fc11d53
+		summarizeBy: none
+		sourceColumn: 年月表示
+		sortByColumn: 月初日
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_カレンダー = m
+		mode: import
+		source =
+				let
+				    Raw = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT TO_CHAR(ADD_MONTHS(DATE '2023-07-01', LEVEL-1),'YYYY/MM') AS 年月, ADD_MONTHS(DATE '2023-07-01', LEVEL-1) AS 月初日, TO_NUMBER(TO_CHAR(ADD_MONTHS(DATE '2023-07-01', LEVEL-1),'YYYY')) AS 年, TO_NUMBER(TO_CHAR(ADD_MONTHS(DATE '2023-07-01', LEVEL-1),'MM')) AS 月, TO_CHAR(ADD_MONTHS(DATE '2023-07-01', LEVEL-1),'YY') || '年' || TO_CHAR(ADD_MONTHS(DATE '2023-07-01', LEVEL-1),'MM') || '月' AS 年月表示 FROM DUAL CONNECT BY LEVEL <= MONTHS_BETWEEN(ADD_MONTHS(TRUNC(SYSDATE,'MM'),24), DATE '2023-07-01') + 1"),
+				    Source = Table.TransformColumnTypes(Raw, {{"年", Int64.Type}, {"月", Int64.Type}, {"月初日", type datetime}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,24 @@
+relationship ba3789e6-a716-42c7-9969-e08dd70107f8
+	fromColumn: Fact_Sales.Part_Code
+	toColumn: Dim_Part.Part_Code
+
+relationship 2dc2bc74-5bf7-40fa-b43b-b6f6ad41cd8c
+	fromColumn: Fact_Sales.Customer_Key
+	toColumn: Dim_Customer.Customer_Key
+
+relationship c548b40a-6a1e-48e6-a4ee-d96a977bffa3
+	fromColumn: Fact_Sales.Year_Month
+	toColumn: Dim_Calendar.Year_Month
+
+relationship dc6fcb96-7fa6-4e2e-a02a-3f621670f980
+	fromColumn: Fact_Purchase.Part_Code
+	toColumn: Dim_Part.Part_Code
+
+relationship e752672d-9068-4622-8d19-f6071845593a
+	fromColumn: Fact_Purchase.Year_Month
+	toColumn: Dim_Calendar.Year_Month
+
+relationship 636b1f58-4b5d-4614-91a0-53ac57f31346
+	fromColumn: Fact_Purchase.Supplier_No
+	toColumn: Dim_Supplier.Supplier_No
+

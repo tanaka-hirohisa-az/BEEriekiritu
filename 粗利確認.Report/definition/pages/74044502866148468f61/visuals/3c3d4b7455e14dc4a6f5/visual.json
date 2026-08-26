@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "3c3d4b7455e14dc4a6f5",
   "position": {
     "x": 0,
     "y": 0,
     "z": 1000,
     "height": 150,
-    "width": 246,
+    "width": 206,
     "tabOrder": 1000
   },
   "visual": {
@@ -89,13 +89,6 @@
                           }
                         ],
                         "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "2025L"
-                              }
-                            }
-                          ],
                           [
                             {
                               "Literal": {

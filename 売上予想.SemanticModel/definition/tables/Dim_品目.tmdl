@@ -1,0 +1,60 @@
+table Dim_品目
+	lineageTag: c113e8f3-e9bd-56a5-bfff-304d1150073e
+
+	column 品目コード
+		dataType: string
+		lineageTag: f0953533-b1d9-50ec-ab16-e6d675920866
+		summarizeBy: none
+		sourceColumn: 品目コード
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目コード原文
+		dataType: string
+		lineageTag: ebed19d7-d3f1-5ec1-a886-aba1157f05d3
+		summarizeBy: none
+		sourceColumn: 品目コード原文
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目名称
+		dataType: string
+		lineageTag: 524c27a7-9a01-5f4a-8266-2f03d53e191b
+		summarizeBy: none
+		sourceColumn: 品目名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column 形式
+		dataType: string
+		lineageTag: 02805c45-9bfa-5c8b-897a-005d736e1f50
+		summarizeBy: none
+		sourceColumn: 形式
+
+		annotation SummarizationSetBy = Automatic
+
+	column 品目区分
+		dataType: string
+		lineageTag: e0868208-011a-5493-a390-a1c48e6e3241
+		summarizeBy: none
+		sourceColumn: 品目区分
+
+		annotation SummarizationSetBy = Automatic
+
+	column 指示先番号
+		dataType: string
+		lineageTag: deb97607-407e-56ad-95c3-d55d258c07d7
+		summarizeBy: none
+		sourceColumn: 指示先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_品目 = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( SELECT UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) AS 品目コード, MAX(TRIM(F_納入品目番号)) AS 品目コード原文, MAX(TRIM(F_品目名称)) AS 品目名称, MAX(TRIM(F_形式)) AS 形式, MAX(TRIM(F_品目区分)) AS 品目区分, MAX(TRIM(F_指示先番号)) AS 指示先番号 FROM PRONES.TB_納入品目情報 WHERE UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) IS NOT NULL GROUP BY UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_納入品目番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) ) q")
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

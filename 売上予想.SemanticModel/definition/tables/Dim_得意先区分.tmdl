@@ -1,0 +1,37 @@
+table Dim_得意先区分
+	lineageTag: 93963e5a-f955-5744-a39f-41d5fa20b9fb
+
+	column 得意先区分
+		dataType: string
+		lineageTag: ce8478bb-dd56-5d74-bbb5-f77e7e00b71b
+		summarizeBy: none
+		sourceColumn: 得意先区分
+		sortByColumn: 得意先区分順序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先区分順序
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b2125e8f-b60c-5068-9521-38518f755e08
+		summarizeBy: none
+		sourceColumn: 得意先区分順序
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_得意先区分 = m
+		mode: import
+		source =
+				let
+				    Base = Table.Distinct(Table.SelectColumns(Dim_得意先, {"得意先区分", "得意先区分順序"})),
+				    全社行 = #table(
+				        type table [得意先区分 = text, 得意先区分順序 = Int64.Type],
+				        {{"全社", 0}}
+				    ),
+				    Combined = Table.Combine({全社行, Base}),
+				    Source = Table.Sort(Table.Distinct(Combined, {"得意先区分"}), {{"得意先区分順序", Order.Ascending}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

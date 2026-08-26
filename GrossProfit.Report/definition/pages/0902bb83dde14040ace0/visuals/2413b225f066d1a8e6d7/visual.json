@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "2413b225f066d1a8e6d7",
+  "position": {
+    "x": 768,
+    "y": 160,
+    "z": 1030,
+    "height": 100,
+    "width": 241,
+    "tabOrder": 1030
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Actual_Profit"
+                }
+              },
+              "queryRef": "Fact_Sales.Actual_Profit",
+              "nativeQueryRef": "Actual_Profit"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Actual Profit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

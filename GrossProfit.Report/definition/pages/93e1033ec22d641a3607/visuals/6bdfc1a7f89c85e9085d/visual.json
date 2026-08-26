@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "6bdfc1a7f89c85e9085d",
+  "position": {
+    "x": 0,
+    "y": 355.55555555555554,
+    "z": 1002,
+    "height": 304.44444444444446,
+    "width": 640,
+    "tabOrder": 1002
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Customer_Category"
+                }
+              },
+              "queryRef": "Fact_Sales.Customer_Category",
+              "nativeQueryRef": "Customer_Category"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Sales_YTD"
+                }
+              },
+              "queryRef": "Fact_Sales.Sales_YTD",
+              "nativeQueryRef": "Sales_YTD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_YTD"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_YTD",
+              "nativeQueryRef": "Approx_Profit_YTD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate_YTD"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate_YTD",
+              "nativeQueryRef": "Approx_Profit_Rate_YTD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Approx_Profit_Rate_PY_Full_Year"
+                }
+              },
+              "queryRef": "Fact_Sales.Approx_Profit_Rate_PY_Full_Year",
+              "nativeQueryRef": "Approx_Profit_Rate_PY_Full_Year"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Sales"
+                  }
+                },
+                "Property": "Customer_Category"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Year-to-Date by Customer Category'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

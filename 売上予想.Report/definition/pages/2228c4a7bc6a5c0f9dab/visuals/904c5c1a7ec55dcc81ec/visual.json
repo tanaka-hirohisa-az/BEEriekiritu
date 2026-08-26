@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "904c5c1a7ec55dcc81ec",
+  "position": {
+    "x": 1004,
+    "y": 8,
+    "z": 1004,
+    "height": 180,
+    "width": 264,
+    "tabOrder": 1004
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "データ基準日"
+                }
+              },
+              "queryRef": "Fact_受注見込.データ基準日",
+              "nativeQueryRef": "データ基準日"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'データ基準日'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

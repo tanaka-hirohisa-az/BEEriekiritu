@@ -1,0 +1,79 @@
+table Dim_得意先
+	lineageTag: c218b20d-2a28-508a-a22e-c7204f583915
+
+	column 得意先番号
+		dataType: string
+		lineageTag: 9b05b59f-15a6-5299-8baa-6a85c5bf8638
+		summarizeBy: none
+		sourceColumn: 得意先番号
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先キー
+		dataType: string
+		lineageTag: 80af13bd-fab0-5354-bec0-39cbe656211b
+		summarizeBy: none
+		sourceColumn: 得意先キー
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先略称
+		dataType: string
+		lineageTag: 47df4798-dd41-5cfa-bc46-dc6d8e9d67da
+		summarizeBy: none
+		sourceColumn: 得意先略称
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先名称
+		dataType: string
+		lineageTag: 88386c4c-7111-5596-b220-a78572772c7a
+		summarizeBy: none
+		sourceColumn: 得意先名称
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先区分
+		dataType: string
+		lineageTag: ffc9eb9e-f2cc-5d6d-8f35-c520bdda2ebf
+		summarizeBy: none
+		sourceColumn: 得意先区分
+		sortByColumn: 得意先区分順序
+
+		annotation SummarizationSetBy = Automatic
+
+	column 得意先区分順序
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 717e9587-11b4-5f0f-a415-ad65595f98e8
+		summarizeBy: none
+		sourceColumn: 得意先区分順序
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_得意先 = m
+		mode: import
+		source =
+				let
+				    CustomerRaw = Value.NativeQuery(Oracle.Database("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=banshu-srv)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=prones)))"), "SELECT * FROM ( SELECT UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_得意先番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) AS 得意先番号, UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_得意先番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) || (chr(35)) || TO_CHAR(ORA_HASH(UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_得意先番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))))) AS 得意先キー, MAX(F_得意先略称) AS 得意先略称, MAX(F_得意先名称) AS 得意先名称 FROM PRONES.TB_得意先情報 WHERE UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_得意先番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) IS NOT NULL GROUP BY UPPER(TRIM(TO_SINGLE_BYTE(TRANSLATE(F_得意先番号, 'A'||CHR(9)||CHR(10)||CHR(13), 'A')))) ) q"),
+				    Mapping = Dim_得意先区分マッピング,
+				    Merged = Table.NestedJoin(CustomerRaw, {"得意先番号"}, Mapping, {"得意先番号"}, "MappingTable", JoinKind.LeftOuter),
+				    Expanded = Table.ExpandTableColumn(Merged, "MappingTable", {"得意先区分"}, {"得意先区分_raw"}),
+				    Replaced = Table.ReplaceValue(Expanded, null, "未分類", Replacer.ReplaceValue, {"得意先区分_raw"}),
+				    Renamed = Table.RenameColumns(Replaced, {{"得意先区分_raw", "得意先区分"}}),
+				    Source = Table.AddColumn(Renamed, "得意先区分順序", each
+				        if [得意先区分] = "キャタピラー系" then 1
+				        else if [得意先区分] = "コベルコ系" then 2
+				        else if [得意先区分] = "コマツ系" then 3
+				        else if [得意先区分] = "その他" then 4
+				        else if [得意先区分] = "住友系" then 5
+				        else if [得意先区分] = "日立系" then 6
+				        else if [得意先区分] = "社内売り" then 7
+				        else if [得意先区分] = "現在売上なし" then 8
+				        else if [得意先区分] = "旧サービス" then 9
+				        else 10, Int64.Type)
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
