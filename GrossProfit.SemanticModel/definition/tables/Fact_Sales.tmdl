@@ -373,8 +373,6 @@ table Fact_Sales
 
 		annotation UnderlyingDateTimeDataType = Date
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column Customer_Category = RELATED('Dim_Customer'[Customer_Category])
 		dataType: string
 		lineageTag: ce89ab7d-ad56-44d2-9a6b-c3885916d4ec
