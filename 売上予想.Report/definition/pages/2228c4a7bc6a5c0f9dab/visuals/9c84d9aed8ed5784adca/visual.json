@@ -1,18 +1,37 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "9c84d9aed8ed5784adca",
   "position": {
-    "x": 12,
-    "y": 534,
-    "z": 1006,
-    "height": 440,
-    "width": 840,
-    "tabOrder": 1006
+    "x": 0,
+    "y": 355.71314599769522,
+    "z": 1007,
+    "height": 277.08181898767839,
+    "width": 640.28366279585134,
+    "tabOrder": 1007
   },
   "visual": {
     "visualType": "pivotTable",
     "query": {
       "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_カレンダー"
+                    }
+                  },
+                  "Property": "年月表示"
+                }
+              },
+              "queryRef": "Dim_カレンダー.年月表示",
+              "nativeQueryRef": "年月表示",
+              "active": true
+            }
+          ]
+        },
         "Rows": {
           "projections": [
             {
@@ -42,7 +61,8 @@
                 }
               },
               "queryRef": "Dim_得意先.得意先略称",
-              "nativeQueryRef": "得意先略称"
+              "nativeQueryRef": "得意先略称",
+              "active": false
             },
             {
               "field": {
@@ -56,26 +76,8 @@
                 }
               },
               "queryRef": "Dim_品目.品目コード",
-              "nativeQueryRef": "品目コード"
-            }
-          ]
-        },
-        "Columns": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Dim_カレンダー"
-                    }
-                  },
-                  "Property": "年月表示"
-                }
-              },
-              "queryRef": "Dim_カレンダー.年月表示",
-              "nativeQueryRef": "年月表示",
-              "active": true
+              "nativeQueryRef": "品目コード",
+              "active": false
             }
           ]
         },
@@ -89,11 +91,11 @@
                       "Entity": "Fact_受注見込"
                     }
                   },
-                  "Property": "内示＋確定"
+                  "Property": "内示＋確定＋見込"
                 }
               },
-              "queryRef": "Fact_受注見込.内示＋確定",
-              "nativeQueryRef": "内示＋確定"
+              "queryRef": "Fact_受注見込.内示＋確定＋見込",
+              "nativeQueryRef": "内示＋確定＋見込"
             }
           ]
         }
@@ -106,7 +108,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'得意先区分別 内示＋確定（行を展開すると 得意先 → 品目）'"
+                  "Value": "'得意先区分別 内示＋確定＋見込（行を展開すると 得意先 → 品目）'"
                 }
               }
             }
@@ -114,5 +116,79 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b8a7d64c4cb715cb3208",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_得意先区分"
+              }
+            },
+            "Property": "得意先区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b69a1b7fbf5ff945a6cd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_得意先"
+              }
+            },
+            "Property": "得意先略称"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "279523d45079b4702796",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_品目"
+              }
+            },
+            "Property": "品目コード"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9ee1a35a06f8c0427687",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_カレンダー"
+              }
+            },
+            "Property": "年月表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4a67a5306b20f8dff7db",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "内示＋確定＋見込"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

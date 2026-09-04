@@ -1,9 +1,9 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "939933d6256d5f468a00",
   "position": {
-    "x": 508,
-    "y": 8,
+    "x": 415.62272848151758,
+    "y": 0,
     "z": 1002,
     "height": 180,
     "width": 236,
@@ -34,6 +34,13 @@
         }
       }
     },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -54,5 +61,23 @@
       "fieldChanges": true,
       "filterChanges": true
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "271c1a02a9002d5bd45f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "計画区分"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

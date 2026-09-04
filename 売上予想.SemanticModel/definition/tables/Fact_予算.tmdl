@@ -39,3 +39,4 @@ table Fact_予算
 				    Source
 
 	annotation PBI_ResultType = Table
+

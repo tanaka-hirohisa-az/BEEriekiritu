@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "00dc7a20157e5a198a6d",
   "position": {
-    "x": 864,
-    "y": 534,
-    "z": 1007,
-    "height": 440,
-    "width": 400,
-    "tabOrder": 1007
+    "x": 992.25245988830773,
+    "y": 632.79496498537355,
+    "z": 1008,
+    "height": 340.73575037673965,
+    "width": 271.46529562982005,
+    "tabOrder": 1008
   },
   "visual": {
     "visualType": "tableEx",
@@ -76,5 +76,51 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a504c895734012ed97da",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "計画区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "47214d10edb6aa9fee0a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "内示金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b18d8d814c62220fecb0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "確定金額"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

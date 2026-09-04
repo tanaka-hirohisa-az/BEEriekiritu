@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "1993f7f6aaeb5dbe901d",
   "position": {
-    "x": 12,
-    "y": 196,
-    "z": 1004,
-    "height": 330,
-    "width": 640,
-    "tabOrder": 1004
+    "x": 0,
+    "y": 681.47150075347929,
+    "z": 1005,
+    "height": 308.908784682209,
+    "width": 956.68114528853823,
+    "tabOrder": 1005
   },
   "visual": {
     "visualType": "tableEx",
@@ -51,11 +51,11 @@
                       "Entity": "Fact_受注見込"
                     }
                   },
-                  "Property": "内示金額"
+                  "Property": "確定金額"
                 }
               },
-              "queryRef": "Fact_受注見込.内示金額",
-              "nativeQueryRef": "内示金額"
+              "queryRef": "Fact_受注見込.確定金額",
+              "nativeQueryRef": "確定金額"
             },
             {
               "field": {
@@ -65,11 +65,11 @@
                       "Entity": "Fact_受注見込"
                     }
                   },
-                  "Property": "確定金額"
+                  "Property": "内示金額"
                 }
               },
-              "queryRef": "Fact_受注見込.確定金額",
-              "nativeQueryRef": "確定金額"
+              "queryRef": "Fact_受注見込.内示金額",
+              "nativeQueryRef": "内示金額"
             },
             {
               "field": {
@@ -98,6 +98,48 @@
               },
               "queryRef": "Fact_受注見込.達成率",
               "nativeQueryRef": "達成率"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "見込金額"
+                }
+              },
+              "queryRef": "Fact_受注見込.見込金額",
+              "nativeQueryRef": "見込金額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "内示＋確定＋見込"
+                }
+              },
+              "queryRef": "Fact_受注見込.内示＋確定＋見込",
+              "nativeQueryRef": "内示＋確定＋見込"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "達成率_見込含む"
+                }
+              },
+              "queryRef": "Fact_受注見込.達成率_見込含む",
+              "nativeQueryRef": "達成率_見込含む"
             }
           ]
         }
@@ -110,7 +152,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月次サマリー（予算 / 内示 / 確定 / 達成率）'"
+                  "Value": "'月次サマリー（予算 / 確定 / 内示 / 見込 / 達成率）'"
                 }
               }
             }
@@ -118,5 +160,135 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "8f0ee829768d955bc312",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_カレンダー"
+              }
+            },
+            "Property": "年月表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5d98ee62ed6b7025db9f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "予算額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f1986f55cbd56cb85371",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "確定金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e2ab5ab3a09ad1a1486c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "内示金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "da6283ae57dc9c8d2a2d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "内示＋確定"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d8e4c80c0172b9bc3671",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "達成率"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "12a32c668b9c3cab9a10",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "見込金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "833409939743d4b24c73",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "内示＋確定＋見込"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "847e3768308eabf63421",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "達成率_見込含む"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

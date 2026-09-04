@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "43d539f807c451788b58",
   "position": {
-    "x": 664,
-    "y": 196,
-    "z": 1005,
-    "height": 330,
-    "width": 600,
-    "tabOrder": 1005
+    "x": 651.516709511568,
+    "y": 196.57831752504208,
+    "z": 1006,
+    "height": 436.2166474603315,
+    "width": 612.20104600655964,
+    "tabOrder": 1006
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -61,6 +61,20 @@
               },
               "queryRef": "Fact_受注見込.内示金額",
               "nativeQueryRef": "内示金額"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_受注見込"
+                    }
+                  },
+                  "Property": "見込金額"
+                }
+              },
+              "queryRef": "Fact_受注見込.見込金額",
+              "nativeQueryRef": "見込金額"
             }
           ]
         },
@@ -91,7 +105,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'月次推移（棒=確定・内示 / 折れ線=予算）'"
+                  "Value": "'月次推移（棒=確定・内示・見込 / 折れ線=予算）'"
                 }
               }
             }
@@ -99,5 +113,79 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "beeead39d38eda5fe189",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_カレンダー"
+              }
+            },
+            "Property": "年月表示"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bb656c5b7cc8acd53fd7",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "確定金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6daf557a9ef90b3caebe",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "内示金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "98e239478532d143075f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "見込金額"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "dada1ad8c0d968e49652",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_受注見込"
+              }
+            },
+            "Property": "予算額"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

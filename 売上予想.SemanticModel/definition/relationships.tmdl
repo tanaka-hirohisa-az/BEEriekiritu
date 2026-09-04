@@ -21,3 +21,4 @@ relationship dbbecdc5-1fe9-5398-bb12-015956870a39
 relationship 4429dbe3-a819-5649-8e70-e6ad684d9004
 	fromColumn: Fact_予算.得意先区分
 	toColumn: Dim_得意先区分.得意先区分
+

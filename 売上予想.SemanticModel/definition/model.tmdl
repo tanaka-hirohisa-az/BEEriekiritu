@@ -21,6 +21,5 @@ ref table Dim_品目
 ref table Fact_受注見込
 ref table Fact_予算
 
-ref expression 予算ファイルパス
-
 ref cultureInfo ja-JP
+
