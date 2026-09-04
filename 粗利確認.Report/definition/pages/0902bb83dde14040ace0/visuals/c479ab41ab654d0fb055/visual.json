@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "c479ab41ab654d0fb055",
   "position": {
     "x": 0,
@@ -92,7 +92,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'26年07月'"
+                                "Value": "'26年08月'"
                               }
                             }
                           ]

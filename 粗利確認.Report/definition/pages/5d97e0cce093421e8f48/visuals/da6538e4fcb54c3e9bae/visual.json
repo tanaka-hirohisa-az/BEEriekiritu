@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "da6538e4fcb54c3e9bae",
   "position": {
     "x": 428,
@@ -43,7 +43,7 @@
               },
               "queryRef": "Dim_得意先.得意先略称",
               "nativeQueryRef": "得意先略称",
-              "active": false
+              "active": true
             }
           ]
         }
@@ -94,7 +94,20 @@
             "isPinned": true
           }
         ],
-        "root": {}
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'コベルコ系'"
+                  }
+                }
+              ],
+              "isToggled": true
+            }
+          ]
+        }
       }
     ],
     "objects": {
