@@ -43,7 +43,7 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "s",
+                    "Name": "d",
                     "Entity": "Dim_カレンダー",
                     "Type": 0
                   }
@@ -57,7 +57,7 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "s"
+                                  "Source": "d"
                                 }
                               },
                               "Property": "年月表示"
@@ -169,6 +169,13 @@
                                 "Value": "'27年09月'"
                               }
                             }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'27年10月'"
+                              }
+                            }
                           ]
                         ]
                       }
@@ -201,5 +208,23 @@
       "fieldChanges": true,
       "filterChanges": true
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "739a5f03253048905ec0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_カレンダー"
+              }
+            },
+            "Property": "年月表示"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }
