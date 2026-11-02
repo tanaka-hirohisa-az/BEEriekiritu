@@ -17,11 +17,17 @@ table Fact_受注見込
 		formatString: #,##0
 		lineageTag: 93c3d141-d27d-55f7-9c09-6f029fe7fb68
 
-	measure 達成率 = DIVIDE([内示＋確定], [予算額])
+	measure 達成率 =
+			VAR BudgetMonths = FILTER(VALUES('Dim_カレンダー'[年月]), NOT ISBLANK([予算額]))
+			RETURN
+			DIVIDE(SUMX(BudgetMonths, [内示＋確定]), [予算額])
 		formatString: 0.0%
 		lineageTag: 9d5e9403-9213-5662-8235-9ac388ba471b
 
-	measure 予算差額 = [内示＋確定] - [予算額]
+	measure 予算差額 =
+			VAR BudgetMonths = FILTER(VALUES('Dim_カレンダー'[年月]), NOT ISBLANK([予算額]))
+			RETURN
+			IF(NOT ISBLANK([予算額]), SUMX(BudgetMonths, [内示＋確定]) - [予算額])
 		formatString: #,##0
 		lineageTag: 780f1d8b-66b0-578e-9715-8576c8481856
 
@@ -44,7 +50,10 @@ table Fact_受注見込
 		formatString: #,##0
 		lineageTag: b8e90e8e-9003-5f2c-89c1-082780bd95cc
 
-	measure 達成率_見込含む = DIVIDE([内示＋確定＋見込], [予算額])
+	measure 達成率_見込含む =
+			VAR BudgetMonths = FILTER(VALUES('Dim_カレンダー'[年月]), NOT ISBLANK([予算額]))
+			RETURN
+			DIVIDE(SUMX(BudgetMonths, [内示＋確定＋見込]), [予算額])
 		formatString: 0.0%
 		lineageTag: 7e485752-1df2-5931-bd2f-e0b213874fda
 
