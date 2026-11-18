@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "360d66c9f12f5f2bab6a",
   "position": {
     "x": 153.51830511479477,
@@ -49,6 +49,21 @@
         }
       }
     },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "selfFilterEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -68,21 +83,6 @@
       "groupName": "sync_得意先区分",
       "fieldChanges": true,
       "filterChanges": true
-    },
-    "objects": {
-      "general": [
-        {
-          "properties": {
-            "selfFilterEnabled": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ]
     }
   },
   "filterConfig": {
@@ -97,6 +97,20 @@
               }
             },
             "Property": "得意先区分"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "95bde79b0a3ce6577004",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_得意先"
+              }
+            },
+            "Property": "得意先略称"
           }
         },
         "type": "Categorical"

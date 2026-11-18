@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "d4bdb29a0c6a4b54a4a9",
   "position": {
     "x": 428,
@@ -176,6 +176,13 @@
                                 "Value": "'住友系'"
                               }
                             }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'竹内製作所'"
+                              }
+                            }
                           ]
                         ]
                       }
@@ -245,6 +252,17 @@
                                 "0": [
                                   {
                                     "Literal": {
+                                      "Value": "'住友系'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
                                       "Value": "'日立系'"
                                     }
                                   }
@@ -256,7 +274,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'住友系'"
+                                      "Value": "'竹内製作所'"
                                     }
                                   }
                                 ]
@@ -292,10 +310,13 @@
                             "0": "その他"
                           },
                           {
+                            "0": "住友系"
+                          },
+                          {
                             "0": "日立系"
                           },
                           {
-                            "0": "住友系"
+                            "0": "竹内製作所"
                           }
                         ]
                       }

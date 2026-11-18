@@ -63,16 +63,17 @@ table Dim_得意先
 				    Replaced = Table.ReplaceValue(Expanded, null, "未分類", Replacer.ReplaceValue, {"得意先区分_raw"}),
 				    Renamed = Table.RenameColumns(Replaced, {{"得意先区分_raw", "得意先区分"}}),
 				    Source = Table.AddColumn(Renamed, "得意先区分順序", each
-				        if [得意先区分] = "キャタピラー系" then 1
+				        if [得意先区分] = "日立系" then 1
 				        else if [得意先区分] = "コベルコ系" then 2
-				        else if [得意先区分] = "コマツ系" then 3
-				        else if [得意先区分] = "その他" then 4
-				        else if [得意先区分] = "住友系" then 5
-				        else if [得意先区分] = "日立系" then 6
-				        else if [得意先区分] = "社内売り" then 7
-				        else if [得意先区分] = "現在売上なし" then 8
-				        else if [得意先区分] = "旧サービス" then 9
-				        else 10, Int64.Type)
+				        else if [得意先区分] = "住友系" then 3
+				        else if [得意先区分] = "キャタピラー系" then 4
+				        else if [得意先区分] = "コマツ系" then 5
+				        else if [得意先区分] = "竹内製作所" then 6
+				        else if [得意先区分] = "その他" then 7
+				        else if [得意先区分] = "社内売り" then 8
+				        else if [得意先区分] = "旧サービス" then 10
+				        else if [得意先区分] = "現在売上なし" then 11
+				        else 9, Int64.Type)
 				in
 				    Source
 
